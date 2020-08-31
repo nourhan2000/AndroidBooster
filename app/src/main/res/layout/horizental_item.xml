@@ -3,8 +3,34 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="5dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp">
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/ic_launcher_background"
+            android:id="@+id/image"/>
+
+        <TextView
+            android:id="@+id/text_title_horizental"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#0E0E0E"
+            android:textSize="19dp"
+            tools:text="the film name"/>
+    </LinearLayout>
+        
+    
 
 </androidx.cardview.widget.CardView>
