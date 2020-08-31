@@ -15,6 +15,7 @@ private val apiClient: APIinterface by lazy {
     private const val apiKey="2a6920b91206c06c1978f5e348c1c98e"
     private lateinit var msg:String
     private lateinit var movieData : MovieResponse
+
     fun requestMovies(callback: MovieCallBack){
         if(this::movieData.isInitialized){
             callback.onMoviesAvailble(movieData)
