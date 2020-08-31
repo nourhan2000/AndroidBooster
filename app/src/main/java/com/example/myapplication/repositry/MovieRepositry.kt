@@ -6,7 +6,6 @@ import com.example.myapplication.network.modules.MovieResponse
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.create
 
 
 object MovieRepositry {
@@ -14,7 +13,8 @@ private val apiClient: APIinterface by lazy {
     APIclient.getClient().create(APIinterface::class.java)
 }
     private const val apiKey="2a6920b91206c06c1978f5e348c1c98e"
-    private lateinit var movieData : List<MovieResponse>
+    private lateinit var msg:String
+    private lateinit var movieData : MovieResponse
     fun requestMovies(callback: MovieCallBack){
         if(this::movieData.isInitialized){
             callback.onMoviesAvailble(movieData)
@@ -22,18 +22,26 @@ private val apiClient: APIinterface by lazy {
         }
         apiClient.getPoularMovie(apiKey).enqueue(object: Callback<MovieResponse>{
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                TODO("Not yet implemented")
+                if(response.isSuccessful) {
+                    movieData = response.body()!!
+                    callback.onMoviesAvailble(movieData)
+                } else if (response.code() == 404){
+                    msg ="The movies aren't found"
+                    callback.onMoviesUnavailble(msg)
+                }
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+                t.printStackTrace()
+                msg ="Error while getting the movies"
+                callback.onMoviesUnavailble(msg)
             }
 
         })
 
     }
     interface MovieCallBack{
-        fun onMoviesAvailble(movies: List<MovieResponse>)
+        fun onMoviesAvailble(movies: MovieResponse)
         fun onMoviesUnavailble(msg:String)
     }
 }
