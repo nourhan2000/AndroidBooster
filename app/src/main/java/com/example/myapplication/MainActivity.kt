@@ -2,6 +2,8 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import com.example.myapplication.network.modules.MovieResponse
 import com.example.myapplication.repositry.MovieRepositry
@@ -11,6 +13,8 @@ class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+         recycler_view.setHasFixedSize(true)
+        recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
 
         requestMovies(this)
             //code for loading image from url
