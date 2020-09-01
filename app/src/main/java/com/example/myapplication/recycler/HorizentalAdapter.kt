@@ -28,11 +28,12 @@ class HorizentalAdapter (private val context: Context, private val postList :Arr
     override fun onBindViewHolder(holder: HorizentalItemViewHolder, position: Int) {
         val horizentalModel: MoviesDetails = postList[position]
         holder.textViewTitle.setText(horizentalModel.OriginalTitle)
+        Picasso.get().load(horizentalModel.PosterPath).into(holder.imageView)
         holder.itemView.setOnClickListener(
         {
             @Override
             fun onClick(v: View) {
-                Toast.makeText(context,HorizntalModel.getName(),Toast.LENGTH_SHORT).show()
+
             }
 
 
@@ -40,10 +41,6 @@ class HorizentalAdapter (private val context: Context, private val postList :Arr
     }
     override fun getItemCount(): Int {
         return postList.size
-    }
-    fun postarImageData(moviesDetails: MoviesDetails)
-    {
-        Picasso.get().load("https://api.themoviedb.org/3/${MoviesDetails.poster_path}").into()
     }
 
 }
