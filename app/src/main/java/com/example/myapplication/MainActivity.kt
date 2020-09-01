@@ -17,10 +17,7 @@ class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         requestMovies(this)
-            //code for loading image from url
-        /* val image_url = ""
-        Picasso.get().load(image_url).into(image_view)
-         */
+
 
 
     }

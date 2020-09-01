@@ -39,7 +39,7 @@ class VerticalAdapter(private val context: Context, private val postList: List<M
         val en =ArrayList<MoviesDetails>()
         val es =ArrayList<MoviesDetails>()
         val ko =ArrayList<MoviesDetails>()
-        val listOfLists= ArrayList<ArrayList<MoviesDetails>>()
+
         for (movie in postList){
             when (movie.originalLanguage) {
                 "en" -> en.add(movie)
@@ -47,10 +47,14 @@ class VerticalAdapter(private val context: Context, private val postList: List<M
                 "ko" -> ko.add(movie)
             }
         }
+        val listOfLists= ArrayList<ArrayList<MoviesDetails>>()
+        listOfLists.add(en)
+        listOfLists.add(es)
+        listOfLists.add(ko)
 
         for(list in listOfLists){
 
-            holder.text.setText(lang[position])
+            holder.text.setText(lang[listOfLists.indexOf(list)])
             holder.myRecycler.setHasFixedSize(true)
             holder.myRecycler.setLayoutManager(
                 LinearLayoutManager(
@@ -61,11 +65,6 @@ class VerticalAdapter(private val context: Context, private val postList: List<M
             )
             holder.myRecycler.setAdapter(HorizentalAdapter(context,list))
         }
-
-       //val verticalModel: MoviesDetails = postList[position]
-        //val title: String = MoviesDetails.getTitle()
-        //val singleItem : ArrayList<HorizntalModel> = verticalModel.getArrayList()
-        //holder.text.setText(title)
 
     }
     override fun getItemCount(): Int {
