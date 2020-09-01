@@ -18,6 +18,13 @@ data class MoviesDetails(
     val PosterPath: Int,
     @SerializedName("original_title")
     val OriginalTitle: String,
-    @SerializedName("original_language")
-    val originalLanguage: String,
+    @SerializedName("vote_average")
+    val voteAverage: Int,
+    @SerializedName("overview")
+    val overview: String,
+    @SerializedName("release_date")
+    val releaseDate: String,
+
+
+
 )
