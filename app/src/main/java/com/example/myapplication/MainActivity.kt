@@ -7,19 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import com.example.myapplication.network.modules.MovieResponse
+import com.example.myapplication.recycler.VerticalAdapter
 import com.example.myapplication.repositry.MovieRepositry
 import com.example.myapplication.repositry.MovieRepositry.requestMovies
 import com.google.gson.annotations.SerializedName
 
 class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
-    val verticalRecyclerView : RecyclerView = recycler_view
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        verticalRecyclerView .setHasFixedSize(true)
-        verticalRecyclerView .setLayoutManager(LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false))
-         recycler_view.setHasFixedSize(true)
-        recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         requestMovies(this)
             //code for loading image from url
         /* val image_url = ""
@@ -32,9 +28,9 @@ class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
 
 
     override fun onMoviesAvailble(movies: MovieResponse) {
-        TODO("Not yet implemented")
-        //resID.LayoutManager
-        //reID.adapter
+        recycler_view.setHasFixedSize(true)
+        recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+        recycler_view.adapter = VerticalAdapter(this@MainActivity,movies.MoviesList)
     }
 
     override fun onMoviesUnavailble(msg: String) {
