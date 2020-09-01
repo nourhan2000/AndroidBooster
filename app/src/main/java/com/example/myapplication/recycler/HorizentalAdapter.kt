@@ -4,12 +4,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import kotlinx.android.synthetic.main.horizental_item.view.*
 
 class HorizentalAdapter (private val context: Context, private val postList :List<HorizntalModel>): RecyclerView.Adapter<HorizentalAdapter.HorizentalItemViewHolder>() {
 
     class HorizentalItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+        val textViewTitle:TextView =itemView.text_title_horizental
+        val imageView:ImageView=itemView.image
+
 
     }
 
@@ -18,11 +25,20 @@ class HorizentalAdapter (private val context: Context, private val postList :Lis
     }
 
     override fun onBindViewHolder(holder: HorizentalItemViewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }
+        val horizentalModel: HorizntalModel = arrayList.get(position)
+        holder.textViewTitle.setText(HorizntalModel.getName())
+        holder.itemView.setOnClickListener(
+        {
+            @Override
+            fun onClick(v: View) {
+                Toast.makeText(context,HorizntalModel.getName(),Toast.LENGTH_SHORT).show()
+            }
 
+
+        })
+    }
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return HorizntalModel.size()
     }
 
 }
