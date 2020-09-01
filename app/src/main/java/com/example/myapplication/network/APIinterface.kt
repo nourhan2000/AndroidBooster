@@ -6,5 +6,5 @@ import retrofit2.http.Query
 
 interface APIinterface {
     @GET("movie/popular")
-    fun getPoularMovie(@Query ("api_key") apiKey:String): Call<MovieResponse >
+    fun getPopularMovie(@Query ("api_key") apiKey:String): Call<MovieResponse >
 }
