@@ -12,7 +12,7 @@ import com.example.myapplication.network.modules.MoviesDetails
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.vertical_item.view.*
 
-class VerticalAdapter(private val context: Context, private val postList: List<MoviesDetails>): RecyclerView.Adapter<VerticalAdapter.ItemViewHolder>() {
+class VerticalAdapter(private val context: Context, private val postList: ArrayList<MoviesDetails>): RecyclerView.Adapter<VerticalAdapter.ItemViewHolder>() {
 
 
         class ItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -32,25 +32,16 @@ class VerticalAdapter(private val context: Context, private val postList: List<M
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+
+        val listOfLists = divideList(postList)
+
         val lang =ArrayList<String>()
         lang.add("en")
         lang.add("es")
         lang.add("ko")
-        val en =ArrayList<MoviesDetails>()
-        val es =ArrayList<MoviesDetails>()
-        val ko =ArrayList<MoviesDetails>()
-        val listOfLists= ArrayList<ArrayList<MoviesDetails>>()
-        for (movie in postList){
-            when (movie.originalLanguage) {
-                "en" -> en.add(movie)
-                "es" -> es.add(movie)
-                "ko" -> ko.add(movie)
-            }
-        }
 
-        for(list in listOfLists){
-
-            holder.text.setText(lang[position])
+        listOfLists.forEachIndexed { index, arrayList ->
+            holder.text.setText(lang[index])
             holder.myRecycler.setHasFixedSize(true)
             holder.myRecycler.setLayoutManager(
                 LinearLayoutManager(
@@ -59,17 +50,32 @@ class VerticalAdapter(private val context: Context, private val postList: List<M
                     false
                 )
             )
-            holder.myRecycler.setAdapter(HorizentalAdapter(context,list))
+            holder.myRecycler.setAdapter(HorizentalAdapter(context,arrayList))
         }
-
-       //val verticalModel: MoviesDetails = postList[position]
-        //val title: String = MoviesDetails.getTitle()
-        //val singleItem : ArrayList<HorizntalModel> = verticalModel.getArrayList()
-        //holder.text.setText(title)
 
     }
     override fun getItemCount(): Int {
         return postList.size
+    }
+    private fun divideList(postList: List<MoviesDetails>): ArrayList<ArrayList<MoviesDetails>>{
+
+        val en =ArrayList<MoviesDetails>()
+        val es =ArrayList<MoviesDetails>()
+        val ko =ArrayList<MoviesDetails>()
+
+        for (movie in postList){
+            when (movie.originalLanguage) {
+                "en" -> en.add(movie)
+                "es" -> es.add(movie)
+                "ko" -> ko.add(movie)
+            }
+        }
+        val listOfLists= ArrayList<ArrayList<MoviesDetails>>()
+        listOfLists.add(en)
+        listOfLists.add(es)
+        listOfLists.add(ko)
+
+        return listOfLists
     }
 
   }
