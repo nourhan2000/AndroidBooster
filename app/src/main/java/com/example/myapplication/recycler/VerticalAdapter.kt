@@ -31,7 +31,7 @@ class VerticalAdapter (private val context: Context, private val postList :List<
         val singleItem : ArrayList<HorizntalModel> = verticalModel.getArrayList()
         holder.text.setText(title)
         holder.myRecycler.setHasFixedSize(true)
-        holder.myRecycler.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false))
+        holder.myRecycler.setLayoutManager(LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false))
         holder.myRecycler.setAdapter(HorizentalAdapter)
         holder.button.setOnClickListener(
         {
