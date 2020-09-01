@@ -4,7 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import kotlinx.android.synthetic.main.vertical_item.view.*
@@ -15,6 +18,7 @@ class VerticalAdapter (private val context: Context, private val postList :List<
         class ItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
               val myRecycler:RecyclerView = itemView.recycler_view_1
             val text : TextView = itemView.text1
+            val button: Button = itemView.btn
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -22,7 +26,22 @@ class VerticalAdapter (private val context: Context, private val postList :List<
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        TODO("Not yet implemented")
+       val verticalModel: VerticalModel = arrayList.get(position)
+        val title: String = vertivalModel.getTitle()
+        val singleItem : ArrayList<HorizntalModel> = verticalModel.getArrayList()
+        holder.text.setText(title)
+        holder.myRecycler.setHasFixedSize(true)
+        holder.myRecycler.setLayoutManager(LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false))
+        holder.myRecycler.setAdapter(HorizentalAdapter)
+        holder.button.setOnClickListener(
+        {
+            @Override
+            fun onClick(v: View) {
+                Toast.makeText(context,VerticalModel.getName(), Toast.LENGTH_SHORT).show()
+            }
+
+
+        )
     }
 
     override fun getItemCount(): Int {
