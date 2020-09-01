@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.myapplication.network.modules.MovieResponse
 import com.example.myapplication.repositry.MovieRepositry
 import com.example.myapplication.repositry.MovieRepositry.requestMovies
+import com.google.gson.annotations.SerializedName
 
 class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
     val verticalRecyclerView : RecyclerView = recycler_view
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
         /* val image_url = ""
         Picasso.get().load(image_url).into(image_view)
          */
+
+
     }
 
 
