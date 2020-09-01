@@ -12,7 +12,7 @@ import com.example.myapplication.network.modules.MoviesDetails
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.vertical_item.view.*
 
-class VerticalAdapter(private val context: Context, private val postList: List<MoviesDetails>): RecyclerView.Adapter<VerticalAdapter.ItemViewHolder>() {
+class VerticalAdapter(private val context: Context, private val postList: ArrayList<MoviesDetails>): RecyclerView.Adapter<VerticalAdapter.ItemViewHolder>() {
 
 
         class ItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -32,10 +32,33 @@ class VerticalAdapter(private val context: Context, private val postList: List<M
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+
+        val listOfLists = divideList(postList)
+
         val lang =ArrayList<String>()
         lang.add("en")
         lang.add("es")
         lang.add("ko")
+
+        listOfLists.forEachIndexed { index, arrayList ->
+            holder.text.setText(lang[index])
+            holder.myRecycler.setHasFixedSize(true)
+            holder.myRecycler.setLayoutManager(
+                LinearLayoutManager(
+                    context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+            )
+            holder.myRecycler.setAdapter(HorizentalAdapter(context,arrayList))
+        }
+
+    }
+    override fun getItemCount(): Int {
+        return postList.size
+    }
+    private fun divideList(postList: List<MoviesDetails>): ArrayList<ArrayList<MoviesDetails>>{
+
         val en =ArrayList<MoviesDetails>()
         val es =ArrayList<MoviesDetails>()
         val ko =ArrayList<MoviesDetails>()
@@ -52,23 +75,7 @@ class VerticalAdapter(private val context: Context, private val postList: List<M
         listOfLists.add(es)
         listOfLists.add(ko)
 
-        for(list in listOfLists){
-
-            holder.text.setText(lang[listOfLists.indexOf(list)])
-            holder.myRecycler.setHasFixedSize(true)
-            holder.myRecycler.setLayoutManager(
-                LinearLayoutManager(
-                    context,
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
-            )
-            holder.myRecycler.setAdapter(HorizentalAdapter(context,list))
-        }
-
-    }
-    override fun getItemCount(): Int {
-        return postList.size
+        return listOfLists
     }
 
   }
