@@ -14,7 +14,7 @@ import com.example.myapplication.network.modules.MoviesDetails
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.vertical_item.view.*
 
-class VerticalAdapter (private val context: Context, private val postList :List<VerticalModel>): RecyclerView.Adapter<VerticalAdapter.ItemViewHolder>() {
+class VerticalAdapter (private val context: Context, private val postList :List<MoviesDetails>): RecyclerView.Adapter<VerticalAdapter.ItemViewHolder>() {
 
 
         class ItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -46,7 +46,7 @@ class VerticalAdapter (private val context: Context, private val postList :List<
             }  )
     }
     override fun getItemCount(): Int {
-        return VerticalModel.size
+        return postList.size
     }
 
   }
