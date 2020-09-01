@@ -17,15 +17,14 @@ class HorizentalAdapter (private val context: Context, private val postList :Lis
         val textViewTitle:TextView =itemView.text_title_horizental
         val imageView:ImageView=itemView.image
 
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizentalItemViewHolder {
-        return VerticalAdapter.ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.Horizental_item, parent, false))
+        return HorizentalItemViewHolder(LayoutInflater.from(context).inflate(R.layout.Horizental_item, parent, false))
     }
 
     override fun onBindViewHolder(holder: HorizentalItemViewHolder, position: Int) {
-        val horizentalModel: HorizntalModel = arrayList.get(position)
+        val horizentalModel: HorizntalModel = postList[position]
         holder.textViewTitle.setText(HorizntalModel.getName())
         holder.itemView.setOnClickListener(
         {
