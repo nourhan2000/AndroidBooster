@@ -4,9 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -14,7 +12,7 @@ import com.example.myapplication.network.modules.MoviesDetails
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.vertical_item.view.*
 
-class VerticalAdapter (private val context: Context, private val postList :List<MoviesDetails>): RecyclerView.Adapter<VerticalAdapter.ItemViewHolder>() {
+class VerticalAdapter(private val context: Context, private val postList: List<MoviesDetails>): RecyclerView.Adapter<VerticalAdapter.ItemViewHolder>() {
 
 
         class ItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -24,35 +22,55 @@ class VerticalAdapter (private val context: Context, private val postList :List<
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.vertical_item, parent, false))
+        return ItemViewHolder(
+            LayoutInflater.from(context).inflate(
+                R.layout.vertical_item,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-       val verticalModel: VerticalModel = postList[position]
-        val title: String = vertivalModel.getTitle()
-        val singleItem : ArrayList<HorizntalModel> = verticalModel.getArrayList()
-        holder.text.setText(title)
-        holder.myRecycler.setHasFixedSize(true)
-        holder.myRecycler.setLayoutManager(LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false))
-        holder.myRecycler.setAdapter(HorizentalAdapter(context,singleItem))
-        holder.button.setOnClickListener(
-            {
-                @Override
-                fun onClick(v: View) {
-                    Toast.makeText(context, VerticalModel.getName(), Toast.LENGTH_SHORT).show()
-                }
+        val lang =ArrayList<String>()
+        lang.add("en")
+        lang.add("es")
+        lang.add("ko")
+        val en =ArrayList<MoviesDetails>()
+        val es =ArrayList<MoviesDetails>()
+        val ko =ArrayList<MoviesDetails>()
+        val listOfLists= ArrayList<ArrayList<MoviesDetails>>()
+        for (movie in postList){
+            when (movie.originalLanguage) {
+                "en" -> en.add(movie)
+                "es" -> es.add(movie)
+                "ko" -> ko.add(movie)
+            }
+        }
 
+        for(list in listOfLists){
 
-            }  )
+            holder.text.setText(lang[position])
+            holder.myRecycler.setHasFixedSize(true)
+            holder.myRecycler.setLayoutManager(
+                LinearLayoutManager(
+                    context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+            )
+            holder.myRecycler.setAdapter(HorizentalAdapter(context,list))
+        }
+
+       //val verticalModel: MoviesDetails = postList[position]
+        //val title: String = MoviesDetails.getTitle()
+        //val singleItem : ArrayList<HorizntalModel> = verticalModel.getArrayList()
+        //holder.text.setText(title)
+
     }
     override fun getItemCount(): Int {
         return postList.size
     }
 
   }
-    fun postarImageData(moviesDetails: MoviesDetails)
-    {
-        Picasso.get().load("https://api.themoviedb.org/3/${MoviesDetails.poster_path}").into()
-    }
 
-}

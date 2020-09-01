@@ -15,7 +15,7 @@ data class MovieResponse(
 
 data class MoviesDetails(
     @SerializedName("poster_path")
-    val PosterPath: Int,
+    val PosterPath: String,
     @SerializedName("original_title")
     val OriginalTitle: String,
     @SerializedName("vote_average")
@@ -24,7 +24,5 @@ data class MoviesDetails(
     val overview: String,
     @SerializedName("release_date")
     val releaseDate: String,
-
-
 
 )
