@@ -9,9 +9,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.network.modules.MoviesDetails
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.horizental_item.view.*
 
-class HorizentalAdapter (private val context: Context, private val postList :List<HorizntalModel>): RecyclerView.Adapter<HorizentalAdapter.HorizentalItemViewHolder>() {
+class HorizentalAdapter (private val context: Context, private val postList :ArrayList<MoviesDetails>): RecyclerView.Adapter<HorizentalAdapter.HorizentalItemViewHolder>() {
 
     class HorizentalItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val textViewTitle:TextView =itemView.text_title_horizental
@@ -38,6 +40,10 @@ class HorizentalAdapter (private val context: Context, private val postList :Lis
     }
     override fun getItemCount(): Int {
         return HorizntalModel.size()
+    }
+    fun postarImageData(moviesDetails: MoviesDetails)
+    {
+        Picasso.get().load("https://api.themoviedb.org/3/${MoviesDetails.poster_path}").into()
     }
 
 }
