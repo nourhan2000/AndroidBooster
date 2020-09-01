@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        verticalRecyclerView .setHasFixedSize(true)
+        verticalRecyclerView .setLayoutManager(LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false))
          recycler_view.setHasFixedSize(true)
         recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         verticalRecyclerView .setHasFixedSize(true)
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         Picasso.get().load(image_url).into(image_view)
          */
     }
+>>>>>>>>> Temporary merge branch 2
 
 
     override fun onMoviesAvailble(movies: MovieResponse) {
