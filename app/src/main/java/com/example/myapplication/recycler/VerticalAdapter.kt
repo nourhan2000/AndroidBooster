@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.network.modules.MoviesDetails
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.vertical_item.view.*
 
 class VerticalAdapter (private val context: Context, private val postList :List<VerticalModel>): RecyclerView.Adapter<VerticalAdapter.ItemViewHolder>() {
@@ -46,6 +48,12 @@ class VerticalAdapter (private val context: Context, private val postList :List<
 
     override fun getItemCount(): Int {
        VetricalModel.size
+    }
+
+  }
+    fun postarImageData(moviesDetails: MoviesDetails)
+    {
+        Picasso.get().load("https://api.themoviedb.org/3/${MoviesDetails.poster_path}").into()
     }
 
 }
