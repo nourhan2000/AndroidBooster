@@ -30,13 +30,17 @@ class HorizentalAdapter (private val context: Context, private val postList :Arr
     }
 
     override fun onBindViewHolder(holder: HorizentalItemViewHolder, position: Int) {
-        val horizentalModel: MoviesDetails = postList[position]
+        horizentalModel = postList[position]
         holder.textViewTitle.setText(horizentalModel.OriginalTitle)
         Picasso.get().load(horizentalModel.PosterPath).into(holder.imageView)
 
     }
+    companion object{
+        lateinit var horizentalModel: MoviesDetails
+    }
     override fun getItemCount(): Int {
         return postList.size
     }
+
 
 }
