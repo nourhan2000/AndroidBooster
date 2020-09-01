@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,8 @@ import com.example.myapplication.network.modules.MovieResponse
 import com.example.myapplication.recycler.VerticalAdapter
 import com.example.myapplication.repositry.MovieRepositry
 import com.example.myapplication.repositry.MovieRepositry.requestMovies
+import com.google.gson.annotations.SerializedName
+import kotlinx.android.synthetic.main.horizental_item.*
 
 class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +23,14 @@ class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
         /* val image_url = ""
         Picasso.get().load(image_url).into(image_view)
          */
+
+
+        image.setOnClickListener {
+            val intent = Intent(this@MainActivity, MainActivity2::class.java)
+            startActivity(intent)
+        }
+
+
     }
 
 
