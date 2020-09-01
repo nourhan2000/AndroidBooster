@@ -40,6 +40,13 @@ class VerticalAdapter(private val context: Context, private val postList: List<M
         val es =ArrayList<MoviesDetails>()
         val ko =ArrayList<MoviesDetails>()
         val listOfLists= ArrayList<ArrayList<MoviesDetails>>()
+        for (movie in postList){
+            when (movie.originalLanguage) {
+                "en" -> en.add(movie)
+                "es" -> es.add(movie)
+                "ko" -> ko.add(movie)
+            }
+        }
 
         for(list in listOfLists){
 

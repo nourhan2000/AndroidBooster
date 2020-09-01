@@ -22,12 +22,12 @@ class HorizentalAdapter (private val context: Context, private val postList :Arr
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizentalItemViewHolder {
-        return HorizentalItemViewHolder(LayoutInflater.from(context).inflate(R.layout.Horizental_item, parent, false))
+        return HorizentalItemViewHolder(LayoutInflater.from(context).inflate(R.layout.horizental_item, parent, false))
     }
 
     override fun onBindViewHolder(holder: HorizentalItemViewHolder, position: Int) {
-        val horizentalModel: HorizntalModel = postList[position]
-        holder.textViewTitle.setText(HorizntalModel.getName())
+        val horizentalModel: MoviesDetails = postList[position]
+        holder.textViewTitle.setText(horizentalModel.OriginalTitle)
         holder.itemView.setOnClickListener(
         {
             @Override
@@ -39,7 +39,7 @@ class HorizentalAdapter (private val context: Context, private val postList :Arr
         })
     }
     override fun getItemCount(): Int {
-        return HorizntalModel.size()
+        return postList.size
     }
     fun postarImageData(moviesDetails: MoviesDetails)
     {
