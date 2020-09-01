@@ -1,13 +1,17 @@
 package com.example.myapplication.recycler
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.MainActivity
+import com.example.myapplication.MainActivity2
 import com.example.myapplication.R
 import com.example.myapplication.network.modules.MoviesDetails
 import com.squareup.picasso.Picasso
@@ -29,15 +33,7 @@ class HorizentalAdapter (private val context: Context, private val postList :Arr
         val horizentalModel: MoviesDetails = postList[position]
         holder.textViewTitle.setText(horizentalModel.OriginalTitle)
         Picasso.get().load(horizentalModel.PosterPath).into(holder.imageView)
-        holder.itemView.setOnClickListener(
-        {
-            @Override
-            fun onClick(v: View) {
 
-            }
-
-
-        })
     }
     override fun getItemCount(): Int {
         return postList.size
