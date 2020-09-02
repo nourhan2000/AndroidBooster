@@ -10,7 +10,7 @@ data class MovieResponse(
     @SerializedName("total_pages")
     val TotalPages: Int,
     @SerializedName("results")
-    val MoviesList : List<MoviesDetails>
+    val MoviesList: ArrayList<MoviesDetails> = ArrayList<MoviesDetails>()
 )
 
 data class MoviesDetails(
@@ -21,11 +21,9 @@ data class MoviesDetails(
     @SerializedName("original_language")
     val originalLanguage: String,
     @SerializedName("vote_average")
-    val voteAverage: Int,
+    val voteAverage: Float,
     @SerializedName("overview")
     val overview: String,
     @SerializedName("release_date")
     val releaseDate: String,
-
-
 )
