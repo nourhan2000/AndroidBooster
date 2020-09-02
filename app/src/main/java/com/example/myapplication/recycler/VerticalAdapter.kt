@@ -40,10 +40,8 @@ class VerticalAdapter( private val postList: ArrayList<MoviesDetails>): Recycler
         listOfLists.forEachIndexed { index, arrayList ->
             holder.text.text = lang[index]
             holder.myRecycler.hasFixedSize()
-            holder.myRecycler.setLayoutManager(
-                LinearLayoutManager(holder.myRecycler.context, LinearLayoutManager.HORIZONTAL, false)
-            )
-            holder.myRecycler.adapter =HorizentalAdapter(arrayList)
+            holder.myRecycler.layoutManager=  LinearLayoutManager(holder.myRecycler.context, LinearLayoutManager.HORIZONTAL, false)
+            holder.myRecycler.adapter = HorizentalAdapter(arrayList)
         }
 
     }

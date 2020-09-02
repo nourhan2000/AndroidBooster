@@ -31,7 +31,7 @@ class HorizentalAdapter ( private val postList :ArrayList<MoviesDetails>): Recyc
 
     override fun onBindViewHolder(holder: HorizentalItemViewHolder, position: Int) {
         horizentalModel = postList[position]
-        holder.textViewTitle.setText(horizentalModel.OriginalTitle)
+        holder.textViewTitle.text = horizentalModel.OriginalTitle
         Picasso.get().load(horizentalModel.PosterPath).into(holder.imageView)
 
     }
