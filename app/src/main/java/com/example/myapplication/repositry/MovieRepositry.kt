@@ -33,6 +33,7 @@ private val apiClient: APIinterface by lazy {
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                println("i'm here")
                 t.printStackTrace()
                 msg ="Error while getting the movies"
                 callback.onMoviesUnavailble(msg)

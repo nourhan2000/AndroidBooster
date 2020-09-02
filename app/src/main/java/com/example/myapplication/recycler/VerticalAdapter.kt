@@ -1,6 +1,5 @@
 package com.example.myapplication.recycler
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,20 +8,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.network.modules.MoviesDetails
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.vertical_item.view.*
 
-class VerticalAdapter(private val context: Context, private val postList: ArrayList<MoviesDetails>): RecyclerView.Adapter<VerticalAdapter.ItemViewHolder>() {
+class VerticalAdapter( private val postList: ArrayList<MoviesDetails>): RecyclerView.Adapter<VerticalAdapter.ItemViewHolder>() {
 
 
         class ItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-              val myRecycler:RecyclerView = itemView.recycler_view_1
-            val text : TextView = itemView.text1
+            val myRecycler:RecyclerView = itemView.recycler_view_1
+            var text : TextView = itemView.text1
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
-            LayoutInflater.from(context).inflate(
+            LayoutInflater.from(parent.context).inflate(
                 R.layout.vertical_item,
                 parent,
                 false
@@ -40,16 +38,10 @@ class VerticalAdapter(private val context: Context, private val postList: ArrayL
         lang.add("ko")
 
         listOfLists.forEachIndexed { index, arrayList ->
-            holder.text.setText(lang[index])
-            holder.myRecycler.setHasFixedSize(true)
-            holder.myRecycler.setLayoutManager(
-                LinearLayoutManager(
-                    context,
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
-            )
-            holder.myRecycler.setAdapter(HorizentalAdapter(context,arrayList))
+            holder.text.text = lang[index]
+            holder.myRecycler.hasFixedSize()
+            holder.myRecycler.layoutManager=  LinearLayoutManager(holder.myRecycler.context, LinearLayoutManager.HORIZONTAL, false)
+            holder.myRecycler.adapter = HorizentalAdapter(arrayList)
         }
 
     }
