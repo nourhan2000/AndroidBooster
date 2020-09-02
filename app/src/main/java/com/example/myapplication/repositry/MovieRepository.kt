@@ -8,42 +8,48 @@ import retrofit2.Call
 import retrofit2.Response
 
 
-object MovieRepositry {
+object MovieRepository {
+
 private val apiClient: APIinterface by lazy {
     APIclient.getClient().create(APIinterface::class.java)
 }
-    private const val apiKey="2a6920b91206c06c1978f5e348c1c98e"
+
+    private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
     private lateinit var msg:String
     private lateinit var movieData : MovieResponse
 
     fun requestMovies(callback: MovieCallBack){
+
         if(this::movieData.isInitialized){
-            callback.onMoviesAvailble(movieData)
+            callback.onMoviesAvailable(movieData)
             return
         }
+
         apiClient.getPopularMovie(apiKey).enqueue(object: Callback<MovieResponse>{
+
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if(response.isSuccessful) {
                     movieData = response.body()!!
-                    callback.onMoviesAvailble(movieData)
+                    callback.onMoviesAvailable(movieData)
                 } else if (response.code() == 404){
                     msg ="The movies aren't found"
-                    callback.onMoviesUnavailble(msg)
+                    callback.onMoviesUnavailable(msg)
                 }
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                println("i'm here")
                 t.printStackTrace()
                 msg ="Error while getting the movies"
-                callback.onMoviesUnavailble(msg)
+                callback.onMoviesUnavailable(msg)
             }
 
         })
 
     }
+
     interface MovieCallBack{
-        fun onMoviesAvailble(movies: MovieResponse)
-        fun onMoviesUnavailble(msg:String)
+        fun onMoviesAvailable(movies: MovieResponse)
+        fun onMoviesUnavailable(msg:String)
     }
+
 }

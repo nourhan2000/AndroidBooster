@@ -26,6 +26,4 @@ data class MoviesDetails(
     val overview: String,
     @SerializedName("release_date")
     val releaseDate: String,
-
-
 )

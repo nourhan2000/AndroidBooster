@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface APIinterface {
+
     @GET("movie/popular")
     fun getPopularMovie(@Query ("api_key") apiKey:String): Call<MovieResponse >
-    //fun getPopularMovie(@Query ("language") language: String , @Query ( "api_key") apiKey: String ): Call<MovieResponse >
 }
