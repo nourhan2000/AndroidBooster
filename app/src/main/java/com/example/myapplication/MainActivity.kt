@@ -1,29 +1,34 @@
 package com.example.myapplication
-
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import com.example.myapplication.network.modules.MovieResponse
+import com.example.myapplication.recycler.VerticalAdapter
 import com.example.myapplication.repositry.MovieRepositry
 import com.example.myapplication.repositry.MovieRepositry.requestMovies
+import kotlinx.android.synthetic.main.horizental_item.*
+
 
 class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         requestMovies(this)
-            //code for loading image from url
-        /* val image_url = ""
-        Picasso.get().load(image_url).into(image_view)
-         */
+
+        image.setOnClickListener {
+            val intent = Intent(this@MainActivity, MainActivity2::class.java)
+            startActivity(intent)
+        }
     }
 
-
     override fun onMoviesAvailble(movies: MovieResponse) {
-        TODO("Not yet implemented")
-        //resID.LayoutManager
-        //reID.adapter
+        recycler_view.setHasFixedSize(true)
+        recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+        recycler_view.adapter = VerticalAdapter(this, movies.MoviesList)
+
     }
 
     override fun onMoviesUnavailble(msg: String) {
