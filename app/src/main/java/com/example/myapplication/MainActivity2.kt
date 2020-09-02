@@ -2,7 +2,6 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.myapplication.recycler.MovieAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.details.*
 
@@ -10,12 +9,22 @@ class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.details)
-
-        val photo = "https://image.tmdb.org/t/p/w500/${MovieAdapter.movieModel.PosterPath}"
+        getMyIntent()
+    }
+    fun getMyIntent(){
+        if(intent.hasExtra("photo")&&intent.hasExtra("date")&&intent.hasExtra("overView")&&intent.hasExtra("vote"))
+        {
+            val photo :String = intent.getStringExtra("photo").toString()
+            val date :String = intent.getStringExtra("date").toString()
+            val overView:String = intent.getStringExtra("overView").toString()
+            val vote :String = intent.getStringExtra("vote").toString()
+            fillMyActivity(photo,date,overView,vote)
+        }
+    }
+    fun fillMyActivity(photo :String,date :String,overView:String,vote :String){
+        textView9.text= overView
+        textView10.text=date
+        textView11.text=vote
         Picasso.get().load(photo).into(imageView2)
-
-        textView9.text= MovieAdapter.movieModel.overview
-        textView10.text=MovieAdapter.movieModel.releaseDate
-        textView11.text= MovieAdapter.movieModel.voteAverage.toString()
     }
 }
