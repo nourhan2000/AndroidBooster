@@ -16,7 +16,7 @@ private val apiClient: APIinterface by lazy {
 
     private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
     private lateinit var msg:String
-    private lateinit var movieData : MovieResponse
+    lateinit var movieData : MovieResponse
 
     fun requestMovies(callback: MovieCallBack){
 
