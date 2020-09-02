@@ -10,7 +10,8 @@ class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.details)
-        Picasso.get().load(HorizentalAdapter.horizentalModel.PosterPath).into(imageView2)
+        val photo = "https://image.tmdb.org/t/p/w500/${HorizentalAdapter.horizentalModel.PosterPath}"
+        Picasso.get().load(photo).into(imageView2)
         textView9.text= HorizentalAdapter.horizentalModel.overview
         textView10.text=HorizentalAdapter.horizentalModel.releaseDate
         textView11.text= HorizentalAdapter.horizentalModel.voteAverage.toString()

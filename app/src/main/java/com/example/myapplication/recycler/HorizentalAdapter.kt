@@ -30,9 +30,9 @@ class HorizentalAdapter ( private val postList :ArrayList<MoviesDetails>): Recyc
     }
 
     override fun onBindViewHolder(holder: HorizentalItemViewHolder, position: Int) {
-        horizentalModel = postList[position]
+        horizentalModel =  postList[position]
         holder.textViewTitle.text = horizentalModel.OriginalTitle
-        val photo = "https://api.themoviedb.org/3/w500/${horizentalModel.PosterPath}"
+        val photo = "https://image.tmdb.org/t/p/w500/${horizentalModel.PosterPath}"
         Picasso.get().load(photo).into(holder.imageView)
 
     }
@@ -42,6 +42,8 @@ class HorizentalAdapter ( private val postList :ArrayList<MoviesDetails>): Recyc
     override fun getItemCount(): Int {
         return postList.size
     }
-
+     interface OnImageListener{
+         fun onImageClick(position:Int)
+     }
 
 }
