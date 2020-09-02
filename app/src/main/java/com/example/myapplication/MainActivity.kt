@@ -18,16 +18,17 @@ class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
         setContentView(R.layout.activity_main)
         requestMovies(this)
 
-        image.setOnClickListener {
-            val intent = Intent(this@MainActivity, MainActivity2::class.java)
-            startActivity(intent)
-        }
+        //produces an error as the image is not found when the program starts
+        /*image.setOnClickListener {
+         //   val intent = Intent(this@MainActivity, MainActivity2::class.java)
+       //     startActivity(intent)
+        }*/
     }
 
     override fun onMoviesAvailble(movies: MovieResponse) {
-        recycler_view.setHasFixedSize(true)
-        recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-        recycler_view.adapter = VerticalAdapter(this, movies.MoviesList)
+        recycler_view.hasFixedSize()
+        recycler_view.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL,false)
+        recycler_view.adapter = VerticalAdapter( movies.MoviesList)
 
     }
 
