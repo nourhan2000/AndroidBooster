@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import com.example.myapplication.network.modules.MovieResponse
+import com.example.myapplication.recycler.VerticalAdapter
 import com.example.myapplication.repositry.MovieRepositry
 import com.example.myapplication.repositry.MovieRepositry.requestMovies
 import kotlinx.android.synthetic.main.horizental_item.*
@@ -26,6 +27,8 @@ class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
     override fun onMoviesAvailble(movies: MovieResponse) {
         recycler_view.setHasFixedSize(true)
         recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+        recycler_view.adapter = VerticalAdapter(this, movies.MoviesList)
+
     }
 
     override fun onMoviesUnavailble(msg: String) {

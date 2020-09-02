@@ -18,7 +18,6 @@ class VerticalAdapter(private val context: Context, private val postList: ArrayL
         class ItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
               val myRecycler:RecyclerView = itemView.recycler_view_1
             val text : TextView = itemView.text1
-              val button = itemView.btn
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
