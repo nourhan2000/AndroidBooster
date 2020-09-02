@@ -9,6 +9,7 @@ import com.example.myapplication.network.modules.MovieResponse
 import com.example.myapplication.recycler.VerticalAdapter
 import com.example.myapplication.repositry.MovieRepositry
 import com.example.myapplication.repositry.MovieRepositry.requestMovies
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.horizental_item.*
 
 
@@ -17,11 +18,10 @@ class MainActivity : AppCompatActivity(), MovieRepositry.MovieCallBack {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         requestMovies(this)
-
         //produces an error as the image is not found when the program starts
         /*image.setOnClickListener {
-         //   val intent = Intent(this@MainActivity, MainActivity2::class.java)
-       //     startActivity(intent)
+            val intent = Intent(this@MainActivity, MainActivity2::class.java)
+           startActivity(intent)
         }*/
     }
 
