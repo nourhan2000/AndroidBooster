@@ -10,20 +10,13 @@ import com.example.myapplication.repositry.MovieRepository
 import com.example.myapplication.repositry.MovieRepository.requestMovies
 
 
-class MainActivity : AppCompatActivity(), MovieRepository.MovieCallBack,
-    MovieAdapter.OnImageListener {
+class MainActivity : AppCompatActivity(), MovieRepository.MovieCallBack {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         requestMovies(this)
-
-        /*line.setOnClickListener {
-            val intent = Intent(this@MainActivity, MainActivity2::class.java)
-           startActivity(intent)
-        }*/
-
     }
 
     override fun onMoviesAvailable(movies: MovieResponse) {
@@ -36,7 +29,7 @@ class MainActivity : AppCompatActivity(), MovieRepository.MovieCallBack,
         Toast.makeText(this@MainActivity ,msg,Toast.LENGTH_SHORT).show()
     }
 
-    override fun onImageClick(position: Int) {
-        TODO("Not yet implemented")
-    }
+
+
+
 }
