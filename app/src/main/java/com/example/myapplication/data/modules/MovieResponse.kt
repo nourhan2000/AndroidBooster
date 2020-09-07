@@ -1,4 +1,4 @@
-package com.example.myapplication.network.modules
+package com.example.myapplication.data.modules
 
 import com.google.gson.annotations.SerializedName
 
@@ -14,6 +14,8 @@ data class MovieResponse(
 )
 
 data class MoviesDetails(
+    @SerializedName("id")
+    val movieId : Long,
     @SerializedName("poster_path")
     val PosterPath: String,
     @SerializedName("original_title")
@@ -25,5 +27,5 @@ data class MoviesDetails(
     @SerializedName("overview")
     val overview: String,
     @SerializedName("release_date")
-    val releaseDate: String,
+    val releaseDate: String
 )

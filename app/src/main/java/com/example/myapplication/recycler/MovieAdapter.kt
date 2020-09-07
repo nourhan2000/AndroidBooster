@@ -9,11 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.MainActivity2
 import com.example.myapplication.R
-import com.example.myapplication.network.modules.MoviesDetails
+import com.example.myapplication.data.database.Movie
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.horizental_item.view.*
 
-class MovieAdapter (private val postList :ArrayList<MoviesDetails>): RecyclerView.Adapter<MovieAdapter.MovieItemViewHolder>() {
+class MovieAdapter (private val postList :List<Movie>): RecyclerView.Adapter<MovieAdapter.MovieItemViewHolder>() {
 
     class MovieItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val textViewTitle:TextView =itemView.text_title_horizental
@@ -25,7 +25,7 @@ class MovieAdapter (private val postList :ArrayList<MoviesDetails>): RecyclerVie
     }
 
     override fun onBindViewHolder(holder: MovieItemViewHolder, position: Int) {
-        movieModel =  postList[position]
+        var movieModel =  postList[position]
         holder.textViewTitle.text = movieModel.OriginalTitle
         val photo = "https://image.tmdb.org/t/p/w500/${movieModel.PosterPath}"
         Picasso.get().load(photo).into(holder.imageView)
@@ -39,9 +39,6 @@ class MovieAdapter (private val postList :ArrayList<MoviesDetails>): RecyclerVie
         }
     }
 
-    companion object{
-        lateinit var movieModel: MoviesDetails
-    }
 
     override fun getItemCount(): Int {
         return postList.size

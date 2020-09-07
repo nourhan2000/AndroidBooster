@@ -4,10 +4,10 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.myapplication.network.modules.MovieResponse
+import com.example.myapplication.data.database.Movie
 import com.example.myapplication.recycler.MovieAdapter
-import com.example.myapplication.repositry.MovieRepository
-import com.example.myapplication.repositry.MovieRepository.requestMovies
+import com.example.myapplication.data.repositry.MovieRepository
+import com.example.myapplication.data.repositry.MovieRepository.requestMovies
 
 
 class MainActivity : AppCompatActivity(), MovieRepository.MovieCallBack {
@@ -19,10 +19,11 @@ class MainActivity : AppCompatActivity(), MovieRepository.MovieCallBack {
         requestMovies(this)
     }
 
-    override fun onMoviesAvailable(movies: MovieResponse) {
+    override fun onMoviesAvailable(movies: List<Movie>) {
         recycler_view.hasFixedSize()
         recycler_view.layoutManager = GridLayoutManager(this@MainActivity ,2)
-        recycler_view.adapter = MovieAdapter( movies.MoviesList )
+        recycler_view.adapter = MovieAdapter(movies)
+
     }
 
     override fun onMoviesUnavailable(msg: String) {
