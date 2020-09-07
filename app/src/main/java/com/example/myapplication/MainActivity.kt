@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), MovieRepository.MovieCallBack {
         recycler_view.hasFixedSize()
         recycler_view.layoutManager = GridLayoutManager(this@MainActivity ,2)
         recycler_view.adapter = MovieAdapter(movies)
+
     }
 
     override fun onMoviesUnavailable(msg: String) {

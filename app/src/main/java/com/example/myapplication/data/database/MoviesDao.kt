@@ -13,5 +13,5 @@ interface MoviesDao {
     fun addMovies(Movies: List<Movie>)
 
     @Query("Select * FROM Movie")
-    fun getMovies(Movies: List<Movie>)
+    fun getMovies(): List<Movie>
 }
