@@ -25,7 +25,7 @@ class MovieAdapter (private val postList :ArrayList<MoviesDetails>): RecyclerVie
     }
 
     override fun onBindViewHolder(holder: MovieItemViewHolder, position: Int) {
-        movieModel =  postList[position]
+        var movieModel =  postList[position]
         holder.textViewTitle.text = movieModel.OriginalTitle
         val photo = "https://image.tmdb.org/t/p/w500/${movieModel.PosterPath}"
         Picasso.get().load(photo).into(holder.imageView)
@@ -39,9 +39,6 @@ class MovieAdapter (private val postList :ArrayList<MoviesDetails>): RecyclerVie
         }
     }
 
-    companion object{
-        lateinit var movieModel: MoviesDetails
-    }
 
     override fun getItemCount(): Int {
         return postList.size

@@ -1,5 +1,6 @@
 package com.example.myapplication.repositry
 
+import com.example.myapplication.data.Movie
 import com.example.myapplication.network.APIclient
 import com.example.myapplication.network.APIinterface
 import com.example.myapplication.network.modules.MovieResponse
@@ -16,7 +17,7 @@ private val apiClient: APIinterface by lazy {
 
     private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
     private lateinit var msg:String
-    lateinit var movieData : MovieResponse
+    lateinit var movieData : List<Movie>
 
     fun requestMovies(callback: MovieCallBack){
 
@@ -29,11 +30,12 @@ private val apiClient: APIinterface by lazy {
 
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if(response.isSuccessful) {
-                    movieData = response.body()!!
+                    movieData = convertToMovie(response.body()!!)
                     callback.onMoviesAvailable(movieData)
                 } else if (response.code() == 404){
                     msg ="The movies aren't found"
                     callback.onMoviesUnavailable(msg)
+                    TODO("call movies availble")
                 }
             }
 
@@ -41,14 +43,22 @@ private val apiClient: APIinterface by lazy {
                 t.printStackTrace()
                 msg ="Error while getting the movies"
                 callback.onMoviesUnavailable(msg)
+                TODO("call movies availble")
             }
 
         })
 
     }
+    fun convertToMovie(movieResponse: MovieResponse): List<Movie>{
+        val movies = mutableListOf<Movie>()
+        movieResponse.MoviesList.forEach{
+            movies.add(Movie(it.movieId,it.PosterPath,it.OriginalTitle,it.originalLanguage,it.voteAverage,it.overview,it.releaseDate))
+        }
+        return movies
+    }
 
     interface MovieCallBack{
-        fun onMoviesAvailable(movies: MovieResponse)
+        fun onMoviesAvailable(movies: List<Movie>)
         fun onMoviesUnavailable(msg:String)
     }
 
