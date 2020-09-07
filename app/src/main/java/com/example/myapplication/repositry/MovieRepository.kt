@@ -1,6 +1,7 @@
 package com.example.myapplication.repositry
 
 import com.example.myapplication.data.Movie
+import android.content.Context
 import com.example.myapplication.network.APIclient
 import com.example.myapplication.network.APIinterface
 import com.example.myapplication.network.modules.MovieResponse
@@ -10,6 +11,8 @@ import retrofit2.Response
 
 
 object MovieRepository {
+
+    private lateinit var  moviesDatabase: MoviesDatabase
 
 private val apiClient: APIinterface by lazy {
     APIclient.getClient().create(APIinterface::class.java)
@@ -62,4 +65,7 @@ private val apiClient: APIinterface by lazy {
         fun onMoviesUnavailable(msg:String)
     }
 
+    fun createDatabase(context: Context){
+        moviesDatabase= MoviesDatabase.getDatabase(context)
+    }
 }
