@@ -1,10 +1,10 @@
-package com.example.myapplication.repositry
+package com.example.myapplication.data.repositry
 
-import com.example.myapplication.data.Movie
+import com.example.myapplication.data.database.Movie
 import android.content.Context
-import com.example.myapplication.network.APIclient
-import com.example.myapplication.network.APIinterface
-import com.example.myapplication.network.modules.MovieResponse
+import com.example.myapplication.data.network.APIclient
+import com.example.myapplication.data.network.APIinterface
+import com.example.myapplication.data.modules.MovieResponse
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
