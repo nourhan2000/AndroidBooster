@@ -1,10 +1,10 @@
-package com.example.myapplication
+package com.example.myapplication.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.myapplication.data.Movie
+import com.example.myapplication.data.database.Movie
 
 @Dao
 interface MoviesDao {
