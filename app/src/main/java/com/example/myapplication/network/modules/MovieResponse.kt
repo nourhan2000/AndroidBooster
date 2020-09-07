@@ -14,6 +14,8 @@ data class MovieResponse(
 )
 
 data class MoviesDetails(
+    @SerializedName("id")
+    val movieId : Long,
     @SerializedName("poster_path")
     val PosterPath: String,
     @SerializedName("original_title")
@@ -25,5 +27,5 @@ data class MoviesDetails(
     @SerializedName("overview")
     val overview: String,
     @SerializedName("release_date")
-    val releaseDate: String,
+    val releaseDate: String
 )
