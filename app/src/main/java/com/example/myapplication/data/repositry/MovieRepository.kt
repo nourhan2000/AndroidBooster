@@ -39,7 +39,7 @@ private val apiClient: APIinterface by lazy {
                 } else if (response.code() == 404){
                     msg ="The movies aren't found"
                     callback.onMoviesUnavailable(msg)
-                    TODO("call movies availble")
+                    callback.onMoviesAvailable(moviesDatabase.getMoviesDao().getMovies())
                 }
             }
 
@@ -47,7 +47,7 @@ private val apiClient: APIinterface by lazy {
                 t.printStackTrace()
                 msg ="Error while getting the movies"
                 callback.onMoviesUnavailable(msg)
-                TODO("call movies availble")
+                callback.onMoviesAvailable(moviesDatabase.getMoviesDao().getMovies())
             }
 
         })
