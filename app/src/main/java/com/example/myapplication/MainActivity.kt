@@ -8,26 +8,47 @@ import com.example.myapplication.network.modules.MovieResponse
 import com.example.myapplication.recycler.MovieAdapter
 import com.example.myapplication.repositry.MovieRepository
 import com.example.myapplication.repositry.MovieRepository.requestMovies
+import androidx.activity.viewModels
 
 
-class MainActivity : AppCompatActivity(), MovieRepository.MovieCallBack {
+class MainActivity : AppCompatActivity(){
+
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        requestMovies(this)
+        mainViewModel.movieLiveData
+            .observe(this, {
+                bindMovieData(it)
+            })
+
+        mainViewModel.onError.observe(this, {
+            handelMovieError(it)
+        })
+
+        mainViewModel.loadMovieData()
+
+
+
+
     }
 
-    override fun onMoviesAvailable(movies: MovieResponse) {
+    private fun bindMovieData(movie: MovieResponse)
+    {
+
         recycler_view.hasFixedSize()
         recycler_view.layoutManager = GridLayoutManager(this@MainActivity ,2)
-        recycler_view.adapter = MovieAdapter( movies.MoviesList )
+        recycler_view.adapter = MovieAdapter( movie.MoviesList )
     }
 
-    override fun onMoviesUnavailable(msg: String) {
-        Toast.makeText(this@MainActivity ,msg,Toast.LENGTH_SHORT).show()
+    private fun handelMovieError(errorMsg: String)
+    {
+        Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_LONG).show()
     }
+
+
 
 
 
