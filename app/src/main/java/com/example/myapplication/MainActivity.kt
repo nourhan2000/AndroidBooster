@@ -26,50 +26,23 @@ class MainActivity : AppCompatActivity() {
             })
 
         mainViewModel.onError.observe(this, {
-            handelWeatherError(it)
+            handelMovieError(it)
         })
 
-        mainViewModel.loadWeatherData()
 
-        refresh_btn.setOnClickListener {
-            if (location_et.text.isNotEmpty())
-                mainViewModel.loadWeatherData(location_et.text.toString())
-        }
-
-        location_et.addTextChangedListener {
-            val text = it.toString()
-            if (text.isNotEmpty())
-                refresh_btn.setImageResource(R.drawable.ic_search_24)
-            else
-                refresh_btn.setImageResource(R.drawable.ic_refresh_white_24)
-        }
     }
 
-    override fun onMoviesAvailable(movies: List<Movie>) {
+
+
+
+    private fun bindMovieData(movies: List<Movie>) {
         recycler_view.hasFixedSize()
         recycler_view.layoutManager = GridLayoutManager(this@MainActivity ,2)
         recycler_view.adapter = MovieAdapter(movies)
-
     }
 
-    override fun onMoviesUnavailable(msg: String) {
+    private fun handelMovieError(msg: String) {
         Toast.makeText(this@MainActivity ,msg,Toast.LENGTH_SHORT).show()
-    }
-
-
-    private fun bindMovieData(weather: WeatherResponse) {
-        location_et.text = null
-        weather_text_unit.text = "C"
-        weather_text_value.text = weather.weatherData.temp.toString()
-        weather_city_name.text = weather.cityName
-        if (weather.weatherList.isNotEmpty())
-            weather_status.text = weather.weatherList.first().status
-    }
-
-    private fun handelWeatherError(errorMsg: String) {
-        weather_loading.hide()
-        refresh_btn.isEnabled = true
-        Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_LONG).show()
     }
 
 
