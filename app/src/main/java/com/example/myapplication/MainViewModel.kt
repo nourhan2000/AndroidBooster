@@ -23,7 +23,7 @@ class MainViewModel : ViewModel(), MovieRepository.MovieCallBack  {
 
 
 
-    fun loadMovieData(cityName: String = "") {
+    fun loadMovieData() {
 
         MovieRepository.requestMovies( this)
     }
