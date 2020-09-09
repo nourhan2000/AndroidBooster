@@ -25,10 +25,7 @@ private val apiClient: APIinterface by lazy {
 
     fun requestMovies(callback: MovieCallBack){
 
-        if(this::movieData.isInitialized){
-            callback.onMoviesAvailable(movieData)
-            return
-        }
+
 
         apiClient.getPopularMovie(apiKey)
             .enqueue(object: Callback<MovieResponse>{
@@ -36,10 +33,12 @@ private val apiClient: APIinterface by lazy {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if(response.isSuccessful) {
                     movieData = convertToMovie(response.body()!!)
+                    moviesDatabase.getMoviesDao().addMovies(movieData)
                     callback.onMoviesAvailable(movieData)
                 } else if (response.code() == 404){
                     msg ="The movies aren't found"
                     callback.onMoviesUnavailable(msg)
+                    callback.onMoviesAvailable(moviesDatabase.getMoviesDao().getMovies())
                 }
             }
 
@@ -53,7 +52,7 @@ private val apiClient: APIinterface by lazy {
         })
 
     }
-    fun convertToMovie(movieResponse: MovieResponse): List<Movie>{
+    private fun convertToMovie(movieResponse: MovieResponse): List<Movie>{
         val movies = mutableListOf<Movie>()
         movieResponse.MoviesList.forEach{
             movies.add(Movie(it.movieId,it.PosterPath,it.OriginalTitle,it.originalLanguage,it.voteAverage,it.overview,it.releaseDate))

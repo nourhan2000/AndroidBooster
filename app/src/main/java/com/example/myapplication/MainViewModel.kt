@@ -1,17 +1,18 @@
 package com.example.myapplication
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.myapplication.network.modules.MovieResponse
-import com.example.myapplication.repositry.MovieRepository
+import com.example.myapplication.data.database.Movie
+import com.example.myapplication.data.repositry.MovieRepository
 
 
-class MainViewModel : ViewModel(), MovieRepository.MovieCallBack  {
+class MainViewModel (application: Application) : AndroidViewModel(application), MovieRepository.MovieCallBack  {
 
-    private val _movieLiveData: MutableLiveData<MovieResponse>
+    private val _movieLiveData: MutableLiveData<List<Movie>>
             by lazy { MutableLiveData() }
-    val movieLiveData: LiveData<MovieResponse>
+    val movieLiveData: LiveData<List<Movie>>
         get() = _movieLiveData
 
     private val _onError: MutableLiveData<String>
@@ -19,16 +20,23 @@ class MainViewModel : ViewModel(), MovieRepository.MovieCallBack  {
     val onError: LiveData<String>
         get() = _onError
 
-    private lateinit var movieData: MovieResponse
+    private lateinit var movieData: List<Movie>
+    init{
+        MovieRepository.createDatabase(application)
+    }
 
 
 
     fun loadMovieData() {
-
-        MovieRepository.requestMovies( this)
+        if(this::movieData.isInitialized) {
+            _movieLiveData.value = movieData
+            return
+            MovieRepository.requestMovies(this)
+        }
     }
 
-    override fun onMoviesAvailable(movies: MovieResponse) {
+
+    override fun onMoviesAvailable(movies: List<Movie>) {
         movieData = movies
         _movieLiveData.value = movieData
     }

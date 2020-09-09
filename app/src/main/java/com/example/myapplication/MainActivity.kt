@@ -3,12 +3,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
-import com.example.myapplication.network.modules.MovieResponse
-import com.example.myapplication.recycler.MovieAdapter
-import com.example.myapplication.repositry.MovieRepository
-import com.example.myapplication.repositry.MovieRepository.requestMovies
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.myapplication.data.database.Movie
+import com.example.myapplication.recycler.MovieAdapter
+
 
 
 class MainActivity : AppCompatActivity(){
@@ -35,12 +34,11 @@ class MainActivity : AppCompatActivity(){
 
     }
 
-    private fun bindMovieData(movie: MovieResponse)
+    private fun bindMovieData(movie: List<Movie>)
     {
-
         recycler_view.hasFixedSize()
         recycler_view.layoutManager = GridLayoutManager(this@MainActivity ,2)
-        recycler_view.adapter = MovieAdapter( movie.MoviesList )
+        recycler_view.adapter = MovieAdapter( movie )
     }
 
     private fun handelMovieError(errorMsg: String)
