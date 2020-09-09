@@ -22,17 +22,19 @@ private val apiClient: APIinterface by lazy {
     private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
     private lateinit var msg:String
     lateinit var movieData : List<Movie>
+    lateinit var movieResponse: MovieResponse
 
     fun requestMovies(callback: MovieCallBack){
 
 
 
-        apiClient.getPopularMovie(apiKey)
+        apiClient.getPopularMovie(apiKey,1)
             .enqueue(object: Callback<MovieResponse>{
 
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if(response.isSuccessful) {
-                    movieData = convertToMovie(response.body()!!)
+                    movieResponse=response.body()!!
+                    movieData = convertToMovie(movieResponse)
                     moviesDatabase.getMoviesDao().addMovies(movieData)
                     callback.onMoviesAvailable(movieData)
                 } else if (response.code() == 404){
