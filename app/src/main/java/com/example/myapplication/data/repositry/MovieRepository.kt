@@ -28,7 +28,7 @@ private val apiClient: APIinterface by lazy {
 
 
 
-        apiClient.getPopularMovie(apiKey,1)
+        apiClient.getPopularMovie(apiKey)
             .enqueue(object: Callback<MovieResponse>{
 
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
