@@ -7,8 +7,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.data.database.Movie
 import com.example.myapplication.recycler.MovieAdapter
-import com.example.myapplication.data.repositry.MovieRepository
-import com.example.myapplication.data.repositry.MovieRepository.requestMovies
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.movieLiveData
             .observe(this, {
+
                 bindMovieData(it)
             })
 
@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.loadMovieData()
 
-
-
-
     }
+
+
+
 
     private fun bindMovieData(movie: List<Movie>)
     {
@@ -47,9 +47,6 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_LONG).show()
     }
 
-    override fun onMoviesUnavailable(msg: String) {
-        Toast.makeText(this@MainActivity ,msg,Toast.LENGTH_SHORT).show()
-    }
 
 
 
