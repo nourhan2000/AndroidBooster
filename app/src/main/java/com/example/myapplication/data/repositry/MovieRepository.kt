@@ -30,7 +30,8 @@ private val apiClient: APIinterface by lazy {
             return
         }
 
-        apiClient.getPopularMovie(apiKey).enqueue(object: Callback<MovieResponse>{
+        apiClient.getPopularMovie(apiKey)
+            .enqueue(object: Callback<MovieResponse>{
 
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if(response.isSuccessful) {
@@ -39,7 +40,6 @@ private val apiClient: APIinterface by lazy {
                 } else if (response.code() == 404){
                     msg ="The movies aren't found"
                     callback.onMoviesUnavailable(msg)
-                    callback.onMoviesAvailable(moviesDatabase.getMoviesDao().getMovies())
                 }
             }
 
