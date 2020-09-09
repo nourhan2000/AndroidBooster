@@ -13,7 +13,6 @@ import retrofit2.Response
 
 object MovieRepository {
 
-
     private lateinit var  moviesDatabase: MoviesDatabase
 
 private val apiClient: APIinterface by lazy {
@@ -21,25 +20,27 @@ private val apiClient: APIinterface by lazy {
 }
 
     private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
-
-
+    private lateinit var msg:String
+    lateinit var movieData : List<Movie>
 
     fun requestMovies(callback: MovieCallBack){
 
-        //if(this::movieData.isInitialized){
-          //  callback.onMoviesAvailable(movieData)
-            //return
-       // }
+        if(this::movieData.isInitialized){
+            callback.onMoviesAvailable(movieData)
+            return
+        }
+
 
         apiClient.getPopularMovie(apiKey)
             .enqueue(object: Callback<MovieResponse>{
 
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if(response.isSuccessful) {
-                    val  movieData = convertToMovie(response.body()!!)
+                    movieData = convertToMovie(response.body()!!)
+                    moviesDatabase.getMoviesDao().addMovies(movieData)
                     callback.onMoviesAvailable(movieData)
                 } else if (response.code() == 404){
-                     val msg ="The movies aren't found"
+                    msg ="The movies aren't found"
                     callback.onMoviesUnavailable(msg)
                     callback.onMoviesAvailable(moviesDatabase.getMoviesDao().getMovies())
                 }
@@ -47,7 +48,7 @@ private val apiClient: APIinterface by lazy {
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                 t.printStackTrace()
-                val msg ="Error while getting the movies"
+                msg ="Error while getting the movies"
                 callback.onMoviesUnavailable(msg)
                 callback.onMoviesAvailable(moviesDatabase.getMoviesDao().getMovies())
             }
@@ -55,7 +56,7 @@ private val apiClient: APIinterface by lazy {
         })
 
     }
-    fun convertToMovie(movieResponse: MovieResponse): List<Movie>{
+    private fun convertToMovie(movieResponse: MovieResponse): List<Movie>{
         val movies = mutableListOf<Movie>()
         movieResponse.MoviesList.forEach{
             movies.add(Movie(it.movieId,it.PosterPath,it.OriginalTitle,it.originalLanguage,it.voteAverage,it.overview,it.releaseDate))
