@@ -30,9 +30,9 @@ class MainViewModel (application: Application) : AndroidViewModel(application), 
     fun loadMovieData() {
         if(this::movieData.isInitialized) {
             _movieLiveData.value = movieData
-            return
+            return}
             MovieRepository.requestMovies(this)
-        }
+
     }
 
 
