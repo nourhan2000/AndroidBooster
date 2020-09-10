@@ -35,13 +35,12 @@ class MainViewModel (application: Application) : AndroidViewModel(application), 
 
     }
 
+    override fun onMoviesUnavailable(msg: String) {
+        _onError.value = msg
+    }
 
     override fun onMoviesAvailable(movies: List<Movie>) {
         movieData = movies
         _movieLiveData.value = movieData
-    }
-
-    override fun onMoviesUnavailable(msg: String) {
-        _onError.value = msg
     }
 }
