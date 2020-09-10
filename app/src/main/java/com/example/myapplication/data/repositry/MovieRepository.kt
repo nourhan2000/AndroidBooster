@@ -19,13 +19,17 @@ private val apiClient: APIinterface by lazy {
     APIclient.getClient().create(APIinterface::class.java)
 }
 
-    private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
-    private lateinit var msg:String
     lateinit var movieData : List<Movie>
     lateinit var movieResponse: MovieResponse
+    private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
+    private lateinit var msg:String
 
     fun requestMovies(callback: MovieCallBack){
 
+        if(this::movieData.isInitialized){
+            callback.onMoviesAvailable(movieData)
+            return
+        }
 
 
         apiClient.getPopularMovie(apiKey)
@@ -62,12 +66,12 @@ private val apiClient: APIinterface by lazy {
         return movies
     }
 
+    fun createDatabase(context: Context){
+        moviesDatabase= MoviesDatabase.getDatabase(context)
+    }
     interface MovieCallBack{
         fun onMoviesAvailable(movies: List<Movie>)
         fun onMoviesUnavailable(msg:String)
     }
 
-    fun createDatabase(context: Context){
-        moviesDatabase= MoviesDatabase.getDatabase(context)
-    }
 }

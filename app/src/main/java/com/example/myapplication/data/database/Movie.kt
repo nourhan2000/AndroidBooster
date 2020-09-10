@@ -2,7 +2,9 @@ package com.example.myapplication.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+
 @Entity
+
 data class Movie (
     @PrimaryKey
     val movieId : Long,

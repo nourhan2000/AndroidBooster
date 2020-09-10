@@ -16,16 +16,17 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        mainViewModel.onError.observe(this, {
+            handelMovieError(it)
+        })
+
         mainViewModel.movieLiveData
             .observe(this, {
                 bindMovieData(it)
             })
 
-        mainViewModel.onError.observe(this, {
-            handelMovieError(it)
-        })
-
         mainViewModel.loadMovieData()
+
     }
 
     private fun bindMovieData(movie: List<Movie>)
@@ -39,10 +40,5 @@ class MainActivity : AppCompatActivity(){
     {
         Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_LONG).show()
     }
-
-
-
-
-
-
+    
 }
