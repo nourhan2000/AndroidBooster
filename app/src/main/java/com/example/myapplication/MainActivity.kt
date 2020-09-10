@@ -40,10 +40,5 @@ class MainActivity : AppCompatActivity(){
     {
         Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_LONG).show()
     }
-
-
-
-
-
-
+    
 }
