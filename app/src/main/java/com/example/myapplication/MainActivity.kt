@@ -10,7 +10,7 @@ import com.example.myapplication.recycler.MovieAdapter
 
 
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(){
 
         mainViewModel.movieLiveData
             .observe(this, {
+
                 bindMovieData(it)
             })
 
@@ -29,10 +30,10 @@ class MainActivity : AppCompatActivity(){
 
         mainViewModel.loadMovieData()
 
-
-
-
     }
+
+
+
 
     private fun bindMovieData(movie: List<Movie>)
     {
@@ -45,7 +46,6 @@ class MainActivity : AppCompatActivity(){
     {
         Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_LONG).show()
     }
-
 
 
 

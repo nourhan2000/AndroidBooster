@@ -25,6 +25,10 @@ private val apiClient: APIinterface by lazy {
 
     fun requestMovies(callback: MovieCallBack){
 
+        if(this::movieData.isInitialized){
+            callback.onMoviesAvailable(movieData)
+            return
+        }
 
 
         apiClient.getPopularMovie(apiKey)
