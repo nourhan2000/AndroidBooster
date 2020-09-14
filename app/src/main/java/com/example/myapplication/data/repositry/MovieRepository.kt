@@ -65,7 +65,10 @@ private val apiClient: APIinterface by lazy {
 
     }
     fun requestVids(callback: VidCallBack,movieId:Long){
-        // check if intialized
+        if(this::vidData.isInitialized){
+            callback.onVidsAvailable(vidData)
+            return
+        }
         apiClient.getMovieVideos(apiKey, movieId).enqueue(object: Callback<VideoResponse>{
             override fun onResponse(call: Call<VideoResponse>, response: Response<VideoResponse>) {
                 if(response.isSuccessful) {
