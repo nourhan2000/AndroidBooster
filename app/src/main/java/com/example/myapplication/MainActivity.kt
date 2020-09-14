@@ -10,6 +10,7 @@ import com.example.myapplication.recycler.MovieAdapter
 
 class MainActivity : AppCompatActivity(){
 
+    val youtubeAPIkey = "AIzaSyAGF4s6LEPwk80wuf7v0gUG5ey8jNQS17I"
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
