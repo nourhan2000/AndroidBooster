@@ -29,3 +29,8 @@ data class MoviesDetails(
     @SerializedName("release_date")
     val releaseDate: String
 )
+
+data class MoviesReviews(
+    @SerializedName("content")
+    val movieContent: String
+)
