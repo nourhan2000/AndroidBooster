@@ -29,7 +29,7 @@ private val apiClient: APIinterface by lazy {
 
     lateinit var movieData : List<Movie>
     lateinit var movieResponse: MovieResponse
-    lateinit var vidData:List<Video>
+    lateinit var vidData:Video
     lateinit var videoResponse: VideoResponse
     lateinit var movieReview: ReviewResponse
     lateinit var movieReviewDB: List<Review>
@@ -145,7 +145,7 @@ private val apiClient: APIinterface by lazy {
         fun onMoviesUnavailable(msg:String)
     }
     interface VidCallBack{
-        fun onVidsAvailable(vids:List<Video>)
+        fun onVidsAvailable(vids:Video)
         fun onVidsUnavailable(msg:String)
     }
 

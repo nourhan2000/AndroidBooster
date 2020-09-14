@@ -18,9 +18,9 @@ class MainViewModel (application: Application)
     val movieLiveData: LiveData<List<Movie>>
         get() = _movieLiveData
 
-    private val _videoLiveData: MutableLiveData<List<Video>>
+    private val _videoLiveData: MutableLiveData<Video>
             by lazy { MutableLiveData() }
-    val videoLiveData: LiveData<List<Video>>
+    val videoLiveData: LiveData<Video>
         get() =_videoLiveData
 
     private val _reviewLiveData: MutableLiveData<List<Review>>
@@ -34,7 +34,7 @@ class MainViewModel (application: Application)
         get() = _onError
 
     private lateinit var movieData: List<Movie>
-    private lateinit var vidData:List<Video>
+    private lateinit var vidData:Video
     private lateinit var movieReviewDB: List<Review>
 
     init{
@@ -73,7 +73,7 @@ class MainViewModel (application: Application)
         _movieLiveData.value = movieData
     }
 
-    override fun onVidsAvailable(vids: List<Video>) {
+    override fun onVidsAvailable(vids: Video) {
         vidData=vids
         _videoLiveData.value=vidData
     }
