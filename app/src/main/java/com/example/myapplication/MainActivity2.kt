@@ -28,4 +28,6 @@ class MainActivity2 : AppCompatActivity() {
         textView9.text= overView
         Picasso.get().load(photo).into(imageView2)
     }
+
+
 }
