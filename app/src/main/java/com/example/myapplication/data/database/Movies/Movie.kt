@@ -1,4 +1,4 @@
-package com.example.myapplication.data.database
+package com.example.myapplication.data.database.Movies
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

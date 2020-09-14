@@ -5,7 +5,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.myapplication.data.database.Movie
+import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.recycler.MovieAdapter
 
 class MainActivity : AppCompatActivity(){

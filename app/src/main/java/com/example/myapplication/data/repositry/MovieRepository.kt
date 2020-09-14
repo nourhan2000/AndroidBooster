@@ -1,12 +1,16 @@
 package com.example.myapplication.data.repositry
 
 import android.content.Context
-import com.example.myapplication.data.database.*
+import com.example.myapplication.data.database.Movies.Movie
+import com.example.myapplication.data.database.Movies.MoviesDatabase
+import com.example.myapplication.data.database.Reviews.Review
+import com.example.myapplication.data.database.Reviews.ReviewDatabase
+import com.example.myapplication.data.database.Videos.Video
+import com.example.myapplication.data.database.Videos.VideoDatabase
 import com.example.myapplication.data.network.APIclient
 import com.example.myapplication.data.network.APIinterface
 import com.example.myapplication.data.modules.MovieResponse
 import com.example.myapplication.data.modules.VideoResponse
-import com.example.myapplication.data.modules.MoviesReviews
 import com.example.myapplication.data.modules.ReviewResponse
 import retrofit2.Callback
 import retrofit2.Call
@@ -27,10 +31,12 @@ private val apiClient: APIinterface by lazy {
     lateinit var movieResponse: MovieResponse
     lateinit var vidData:List<Video>
     lateinit var videoResponse: VideoResponse
-    private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
-    private lateinit var msg:String
     lateinit var movieReview: ReviewResponse
     lateinit var movieReviewDB: List<Review>
+    val mapper = Mapper()
+    private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
+    private lateinit var msg:String
+
 
     fun requestMovies(callback: MovieCallBack){
 
@@ -46,7 +52,7 @@ private val apiClient: APIinterface by lazy {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if(response.isSuccessful) {
                     movieResponse=response.body()!!
-                    movieData = convertToMovie(movieResponse)
+                    movieData = mapper.convertToMovie(movieResponse)
                     moviesDatabase.getMoviesDao().addMovies(movieData)
                     callback.onMoviesAvailable(movieData)
                 } else if (response.code() == 404){
@@ -75,7 +81,7 @@ private val apiClient: APIinterface by lazy {
             override fun onResponse(call: Call<VideoResponse>, response: Response<VideoResponse>) {
                 if(response.isSuccessful) {
                     videoResponse=response.body()!!
-                    vidData = convertToVideo(videoResponse)
+                    vidData = mapper.convertToVideo(videoResponse)
                     videoDatabase.getVidsDao().addVids(vidData)
                     callback.onVidsAvailable(vidData)
                 } else if (response.code() == 404){
@@ -108,7 +114,7 @@ private val apiClient: APIinterface by lazy {
                 {
                     if(response.isSuccessful) {
                         movieReview=response.body()!!
-                        movieReviewDB = convertToReview(movieReview)
+                        movieReviewDB = mapper.convertToReview(movieReview)
                         reviewDatabase.getReviewsDao().addReviews(movieReviewDB)
                         callback.onReviewAvailable(movieReviewDB)
                     } else if (response.code() == 404){
@@ -127,30 +133,6 @@ private val apiClient: APIinterface by lazy {
 
             })
 
-    }
-
-    private fun convertToMovie(movieResponse: MovieResponse): List<Movie>{
-        val movies = mutableListOf<Movie>()
-        movieResponse.MoviesList.forEach{
-            movies.add(Movie(it.movieId,it.PosterPath,it.OriginalTitle,it.originalLanguage,it.voteAverage,it.overview,it.releaseDate))
-        }
-        return movies
-    }
-
-    private fun convertToVideo(videoResponse: VideoResponse): List<Video>{
-        val videos = mutableListOf<Video>()
-        videoResponse.vidsList.forEach{
-            videos.add(Video(it.vidId,it.vidKey,it.name,it.site,it.type))
-        }
-        return videos
-    }
-
-    private fun convertToReview(reviewResponse: ReviewResponse): List<Review>{
-        val reviews = mutableListOf<Review>()
-        reviewResponse.reviewResult.forEach{
-            reviews.add(Review(it.movieContent))
-        }
-        return reviews
     }
 
     fun createDatabase(context: Context){

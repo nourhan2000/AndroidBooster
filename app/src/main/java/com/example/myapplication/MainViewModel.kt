@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.myapplication.data.database.Movie
+import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.data.repositry.MovieRepository
 
 

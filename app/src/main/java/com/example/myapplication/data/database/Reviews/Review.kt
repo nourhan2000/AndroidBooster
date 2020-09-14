@@ -1,4 +1,4 @@
-package com.example.myapplication.data.database
+package com.example.myapplication.data.database.Reviews
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,4 +1,4 @@
-package com.example.myapplication.data.database
+package com.example.myapplication.data.database.Reviews
 
 import android.content.Context
 import androidx.room.Database
