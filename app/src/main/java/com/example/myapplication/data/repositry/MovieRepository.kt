@@ -150,7 +150,7 @@ private val apiClient: APIinterface by lazy {
     }
 
     interface ReviewCallBack{
-        fun onReviewAvailable(movies: List<Review>)
+        fun onReviewAvailable(reviews: List<Review>)
         fun onReviewUnavailable(msg:String)
     }
 }

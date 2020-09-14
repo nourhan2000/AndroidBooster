@@ -57,6 +57,8 @@ data class ReviewResponse(
 )
 
 data class MoviesReviews(
+    @SerializedName("id")
+    val ReviewId :Long,
     @SerializedName("content")
     val movieContent: String
 )
