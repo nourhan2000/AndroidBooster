@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.data.database.Movie
 import com.example.myapplication.recycler.MovieAdapter
 
-
-
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -18,22 +16,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainViewModel.movieLiveData
-            .observe(this, {
-
-                bindMovieData(it)
-            })
-
         mainViewModel.onError.observe(this, {
             handelMovieError(it)
         })
 
+        mainViewModel.movieLiveData
+            .observe(this, {
+                bindMovieData(it)
+            })
+
         mainViewModel.loadMovieData()
 
     }
-
-
-
 
     private fun bindMovieData(movie: List<Movie>)
     {
@@ -46,9 +40,5 @@ class MainActivity : AppCompatActivity() {
     {
         Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_LONG).show()
     }
-
-
-
-
-
+    
 }

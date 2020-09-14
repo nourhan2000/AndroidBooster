@@ -6,12 +6,10 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface MoviesDao {
-
-    @Query("Select * FROM Movie")
-    fun getMovies(): List<Movie>
+interface VideosDao {
+    @Query("Select * FROM Video")
+    fun getVids(): List<Video>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addMovies(Movies: List<Movie>)
-
- }
+    fun addVids(Movies: List<Video>)
+}
