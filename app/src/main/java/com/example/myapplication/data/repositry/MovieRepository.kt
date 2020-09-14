@@ -3,9 +3,11 @@ package com.example.myapplication.data.repositry
 import com.example.myapplication.data.database.Movie
 import android.content.Context
 import com.example.myapplication.data.database.MoviesDatabase
+import com.example.myapplication.data.database.Videos
 import com.example.myapplication.data.network.APIclient
 import com.example.myapplication.data.network.APIinterface
 import com.example.myapplication.data.modules.MovieResponse
+import com.example.myapplication.data.modules.VideoResponse
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
@@ -21,6 +23,7 @@ private val apiClient: APIinterface by lazy {
 
     lateinit var movieData : List<Movie>
     lateinit var movieResponse: MovieResponse
+    lateinit var videoResponse: VideoResponse
     private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
     private lateinit var msg:String
 
@@ -58,6 +61,29 @@ private val apiClient: APIinterface by lazy {
         })
 
     }
+    fun requestVids(callback: VidCallBack,pos:Int){
+        TODO("check if videos are intialized")
+
+        apiClient.getMovieVideos(apiKey, movieData[pos].movieId).enqueue(object: Callback<VideoResponse>{
+            override fun onResponse(call: Call<VideoResponse>, response: Response<VideoResponse>) {
+                if(response.isSuccessful) {
+                    videoResponse=response.body()!!
+
+                } else if (response.code() == 404){
+                    msg ="The videos aren't found"
+                    callback.onVidsUnavailable(msg)
+                    callback.onVidsAvailable(TODO("when added to database"))
+                }
+            }
+
+            override fun onFailure(call: Call<VideoResponse>, t: Throwable) {
+                msg ="Error while getting the videos"
+                callback.onVidsUnavailable(msg)
+                callback.onVidsAvailable(TODO("when added to database"))
+            }
+
+        })
+    }
     private fun convertToMovie(movieResponse: MovieResponse): List<Movie>{
         val movies = mutableListOf<Movie>()
         movieResponse.MoviesList.forEach{
@@ -72,6 +98,10 @@ private val apiClient: APIinterface by lazy {
     interface MovieCallBack{
         fun onMoviesAvailable(movies: List<Movie>)
         fun onMoviesUnavailable(msg:String)
+    }
+    interface VidCallBack{
+        fun onVidsAvailable(vids:List<Videos>)
+        fun onVidsUnavailable(msg:String)
     }
 
 }

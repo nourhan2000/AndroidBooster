@@ -29,3 +29,22 @@ data class MoviesDetails(
     @SerializedName("release_date")
        val releaseDate: String
 )
+data class VideoResponse(
+    @SerializedName("id")
+    val vidsId :Long,
+    @SerializedName("results")
+    val vidsList : ArrayList<VideoResults> = ArrayList<VideoResults>()
+)
+data class VideoResults(
+    //@SerializedName("")
+    @SerializedName("id")
+    val vidId :Long,
+    @SerializedName("key")
+    val vidKey : String,
+    @SerializedName("name")
+    val name : String,
+    @SerializedName("site")
+    val site : String,
+    @SerializedName("type")
+    val type : String
+)
