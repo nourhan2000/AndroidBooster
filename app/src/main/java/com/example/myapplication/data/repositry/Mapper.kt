@@ -27,7 +27,7 @@ class Mapper {
      fun convertToReview(reviewResponse: ReviewResponse): List<Review>{
         val reviews = mutableListOf<Review>()
         reviewResponse.reviewResult.forEach{
-            reviews.add(Review(it.movieContent))
+            reviews.add(Review(it.ReviewId,it.movieContent))
         }
         return reviews
     }
