@@ -48,3 +48,15 @@ data class VideoResults(
     @SerializedName("type")
     val type : String
 )
+
+data class ReviewResponse(
+    @SerializedName("id")
+    val ReviewId :Long,
+   @SerializedName("results")
+   val reviewResult: ArrayList<MoviesReviews>
+)
+
+data class MoviesReviews(
+    @SerializedName("content")
+    val movieContent: String
+)
