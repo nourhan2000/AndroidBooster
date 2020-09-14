@@ -23,9 +23,20 @@ class MainActivity : AppCompatActivity(){
         mainViewModel.movieLiveData
             .observe(this, {
                 bindMovieData(it)
+                it.forEach {
+                    mainViewModel.loadMovieReviews(it.movieId)
+                    mainViewModel.loadMovieVideo(it.movieId)
+                }
             })
 
         mainViewModel.loadMovieData()
+
+        mainViewModel.reviewLiveData.observe(this,{
+            TODO("put in secound fragment")
+        })
+        mainViewModel.videoLiveData.observe(this,{
+            TODO("put in secound fragment")
+        })
 
     }
 
