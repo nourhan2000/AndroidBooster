@@ -1,14 +1,13 @@
 package com.example.myapplication.data.repositry
 
-import com.example.myapplication.data.database.Movie
 import android.content.Context
-import com.example.myapplication.data.database.MoviesDatabase
-import com.example.myapplication.data.database.Video
-import com.example.myapplication.data.database.VideoDatabase
+import com.example.myapplication.data.database.*
 import com.example.myapplication.data.network.APIclient
 import com.example.myapplication.data.network.APIinterface
 import com.example.myapplication.data.modules.MovieResponse
 import com.example.myapplication.data.modules.VideoResponse
+import com.example.myapplication.data.modules.MoviesReviews
+import com.example.myapplication.data.modules.ReviewResponse
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
@@ -18,6 +17,7 @@ object MovieRepository {
 
     private lateinit var moviesDatabase: MoviesDatabase
     private lateinit var videoDatabase: VideoDatabase
+    private lateinit var reviewDatabase: ReviewDatabase
 
 private val apiClient: APIinterface by lazy {
     APIclient.getClient().create(APIinterface::class.java)
@@ -29,6 +29,8 @@ private val apiClient: APIinterface by lazy {
     lateinit var videoResponse: VideoResponse
     private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
     private lateinit var msg:String
+    lateinit var movieReview: ReviewResponse
+    lateinit var movieReviewDB: List<Review>
 
     fun requestMovies(callback: MovieCallBack){
 
@@ -91,6 +93,42 @@ private val apiClient: APIinterface by lazy {
 
         })
     }
+
+    fun requestMovieReviews(callback: ReviewCallBack,movieId: Long){
+
+        if(this::movieReviewDB.isInitialized){
+            callback.onReviewAvailable(movieReviewDB)
+            return
+        }
+
+
+        apiClient.getMovieReviews(apiKey,movieId)
+            .enqueue(object: Callback<ReviewResponse>{
+                override fun onResponse(call: Call<ReviewResponse>, response: Response<ReviewResponse>)
+                {
+                    if(response.isSuccessful) {
+                        movieReview=response.body()!!
+                        movieReviewDB = convertToReview(movieReview)
+                        reviewDatabase.getReviewsDao().addReviews(movieReviewDB)
+                        callback.onReviewAvailable(movieReviewDB)
+                    } else if (response.code() == 404){
+                        msg ="The review aren't found"
+                        callback.onReviewUnavailable(msg)
+                        callback.onReviewAvailable(reviewDatabase.getReviewsDao().getReviews())
+                    }
+                }
+
+                override fun onFailure(call: Call<ReviewResponse>, t: Throwable) {
+                    msg ="error while getting reviews"
+                    callback.onReviewUnavailable(msg)
+                    callback.onReviewAvailable(reviewDatabase.getReviewsDao().getReviews())
+                }
+
+
+            })
+
+    }
+
     private fun convertToMovie(movieResponse: MovieResponse): List<Movie>{
         val movies = mutableListOf<Movie>()
         movieResponse.MoviesList.forEach{
@@ -107,9 +145,18 @@ private val apiClient: APIinterface by lazy {
         return videos
     }
 
+    private fun convertToReview(reviewResponse: ReviewResponse): List<Review>{
+        val reviews = mutableListOf<Review>()
+        reviewResponse.reviewResult.forEach{
+            reviews.add(Review(it.movieContent))
+        }
+        return reviews
+    }
+
     fun createDatabase(context: Context){
         moviesDatabase= MoviesDatabase.getDatabase(context)
         videoDatabase= VideoDatabase.getDatabase(context)
+        reviewDatabase= ReviewDatabase.getDatabase(context)
     }
     interface MovieCallBack{
         fun onMoviesAvailable(movies: List<Movie>)
@@ -120,4 +167,8 @@ private val apiClient: APIinterface by lazy {
         fun onVidsUnavailable(msg:String)
     }
 
+    interface ReviewCallBack{
+        fun onReviewAvailable(movies: List<Review>)
+        fun onReviewUnavailable(msg:String)
+    }
 }
