@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.MainActivity2
 import com.example.myapplication.R
-import com.example.myapplication.data.database.Movie
+import com.example.myapplication.data.database.Movies.Movie
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.horizental_item.view.*
 
@@ -39,10 +39,8 @@ class MovieAdapter (private val postList :List<Movie>): RecyclerView.Adapter<Mov
         }
     }
 
-
     override fun getItemCount(): Int {
         return postList.size
     }
-
 
 }

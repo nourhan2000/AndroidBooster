@@ -5,35 +5,41 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.myapplication.data.database.Movie
+import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.recycler.MovieAdapter
 
+class MainActivity : AppCompatActivity(){
 
-
-class MainActivity : AppCompatActivity() {
-
+    val youtubeAPIkey = "AIzaSyAGF4s6LEPwk80wuf7v0gUG5ey8jNQS17I"
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainViewModel.movieLiveData
-            .observe(this, {
-
-                bindMovieData(it)
-            })
-
         mainViewModel.onError.observe(this, {
             handelMovieError(it)
         })
 
+        mainViewModel.movieLiveData
+            .observe(this, {
+                bindMovieData(it)
+                it.forEach {
+                    mainViewModel.loadMovieReviews(it.movieId)
+                    mainViewModel.loadMovieVideo(it.movieId)
+                }
+            })
+
         mainViewModel.loadMovieData()
 
+        mainViewModel.reviewLiveData.observe(this,{
+            TODO("put in secound fragment")
+        })
+        mainViewModel.videoLiveData.observe(this,{
+            TODO("put in secound fragment")
+        })
+
     }
-
-
-
 
     private fun bindMovieData(movie: List<Movie>)
     {
@@ -46,9 +52,5 @@ class MainActivity : AppCompatActivity() {
     {
         Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_LONG).show()
     }
-
-
-
-
-
+    
 }
