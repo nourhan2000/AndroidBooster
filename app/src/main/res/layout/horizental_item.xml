@@ -34,6 +34,13 @@
             android:textColor="#1B86DC"
             android:textSize="20sp"
             tools:text="the film name" />
+
+        <Button
+            android:id="@+id/fav_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_baseline_favorite_border_24" />
     </LinearLayout>
 
 
