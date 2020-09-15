@@ -1,8 +1,11 @@
 package com.example.myapplication.data.database
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
+
 @Entity
+
 data class Movie (
     @PrimaryKey
     val movieId : Long,
@@ -11,5 +14,6 @@ data class Movie (
     val originalLanguage: String,
     val voteAverage: Float,
     val overview: String,
-    val releaseDate: String
+    val releaseDate: String,
+    var isFavorite: Boolean=false
 )

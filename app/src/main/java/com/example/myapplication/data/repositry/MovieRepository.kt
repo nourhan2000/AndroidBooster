@@ -69,6 +69,7 @@ private val apiClient: APIinterface by lazy {
     fun createDatabase(context: Context){
         moviesDatabase= MoviesDatabase.getDatabase(context)
     }
+
     interface MovieCallBack{
         fun onMoviesAvailable(movies: List<Movie>)
         fun onMoviesUnavailable(msg:String)
