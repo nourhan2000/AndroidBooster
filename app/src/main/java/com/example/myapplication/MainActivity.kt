@@ -4,6 +4,10 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.data.database.Movie
 import com.example.myapplication.recycler.MovieAdapter
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity(){
 
         mainViewModel.loadMovieData()
 
+
     }
 
     private fun bindMovieData(movie: List<Movie>)
@@ -40,5 +45,5 @@ class MainActivity : AppCompatActivity(){
     {
         Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_LONG).show()
     }
-    
+
 }
