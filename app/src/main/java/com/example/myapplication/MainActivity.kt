@@ -1,18 +1,19 @@
 package com.example.myapplication
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.myapplication.data.database.Movie
+import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.recycler.MovieAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
 
@@ -33,10 +34,12 @@ class MainActivity : AppCompatActivity(){
 
         mainViewModel.loadMovieData()
 
-        val navController=Navigation
+
+        val navController = Navigation
             .findNavController(this,R.id.main_container)
 
         NavigationUI.setupWithNavController(navigation_bottom,navController)
+
 
 
     }
@@ -52,6 +55,5 @@ class MainActivity : AppCompatActivity(){
     {
         Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_LONG).show()
     }
-
 
 }
