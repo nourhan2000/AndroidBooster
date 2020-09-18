@@ -1,19 +1,13 @@
-package com.example.myapplication
+package com.example.myapplication.UI
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.annotation.IdRes
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.GridLayoutManager
+import com.example.myapplication.R
 import com.example.myapplication.data.database.Movies.Movie
-import com.example.myapplication.recycler.MovieAdapter
-import com.google.android.youtube.player.YouTubeBaseActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -49,15 +43,15 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.loadMovieData()
 
         val navController= Navigation
-            .findNavController(this,R.id.main_container)
+            .findNavController(this, R.id.main_container)
 
         NavigationUI.setupWithNavController(navigation_bottom,navController)
 
         mainViewModel.reviewLiveData.observe(this,{
-            TODO("put in secound fragment")
+
         })
         mainViewModel.videoLiveData.observe(this,{
-            TODO("put in secound fragment")
+
         })
 
     }

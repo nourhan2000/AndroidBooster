@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".BlankFragment3">
+    tools:context=".UI.TopMoviesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
     <TextView
         android:id="@+id/top_title"
         android:textColor="#407093"
-        android:textSize="28dp"
+        android:textSize="28sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Top Movies"

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/blankFragment3"
-        android:name="com.example.myapplication.BlankFragment3"
+        android:name="com.example.myapplication.UI.TopMoviesFragment"
         android:label="top_movies_fragment"
         tools:layout="@layout/top_movies_fragment" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/blankFragment"
-        android:name="com.example.myapplication.BlankFragment"
+        android:name="com.example.myapplication.UI.PopularMoviesFragment"
         android:label="popular_movies_fragment"
         tools:layout="@layout/popular_movies_fragment" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/blankFragment2"
-        android:name="com.example.myapplication.BlankFragment2"
+        android:name="com.example.myapplication.UI.FavouritesFragment"
         android:label="favourites_fragment"
         tools:layout="@layout/favourites_fragment" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/blankFragment4"
-        android:name="com.example.myapplication.BlankFragment4"
+        android:name="com.example.myapplication.UI.DetailsFragment"
         android:label="details_fragment"
         tools:layout="@layout/details_fragment" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/blankFragment5"
-        android:name="com.example.myapplication.BlankFragment5"
-        android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" />
+        android:name="com.example.myapplication.UI.VidFragment"
+        android:label="vid_fragment"
+        tools:layout="@layout/vid_fragment" />
 </navigation>
