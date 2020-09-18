@@ -8,8 +8,9 @@ import androidx.room.Query
 @Dao
 interface VideosDao {
     @Query("Select * FROM Video")
-    fun getVids(): List<Video>
+    fun getVids(): Video
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addVids(Movies: List<Video>)
+    fun addVids(Movies: Video)
+
 }

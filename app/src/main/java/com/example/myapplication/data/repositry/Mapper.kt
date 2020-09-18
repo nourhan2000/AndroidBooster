@@ -16,12 +16,9 @@ class Mapper {
         return movies
     }
 
-     fun convertToVideo(videoResponse: VideoResponse): List<Video>{
-        val videos = mutableListOf<Video>()
-        videoResponse.vidsList.forEach{
-            videos.add(Video(it.vidId,it.vidKey,it.name,it.site,it.type))
-        }
-        return videos
+     fun convertToVideo(videoResponse: VideoResponse): Video{
+        val video = videoResponse.vidsList.first()
+        return Video(video.vidId,video.vidKey,video.name,video.site,video.type)
     }
 
      fun convertToReview(reviewResponse: ReviewResponse): List<Review>{
