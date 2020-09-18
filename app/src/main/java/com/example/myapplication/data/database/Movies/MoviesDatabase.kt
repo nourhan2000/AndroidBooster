@@ -1,4 +1,4 @@
-package com.example.myapplication.data.database
+package com.example.myapplication.data.database.Movies
 
 import android.content.Context
 import androidx.room.Database
