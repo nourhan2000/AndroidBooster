@@ -37,6 +37,14 @@ class MainActivity : AppCompatActivity(){
                     mainViewModel.loadMovieVideo(it.movieId)
                 }
             })
+        mainViewModel.topMovieLiveData
+            .observe(this, {
+                bindMovieData(it)
+                it.forEach {
+                    mainViewModel.loadMovieReviews(it.movieId)
+                    mainViewModel.loadMovieVideo(it.movieId)
+                }
+            })
 
         mainViewModel.loadMovieData()
 

@@ -18,4 +18,8 @@ interface APIinterface {
 
     @GET("movie/{movie_id}/videos")
     fun getMovieVideos(@Query ("api_key") apiKey:String, @Path("movie_id") movieId:Long): Call<VideoResponse>
+
+    @GET("movie/top_rated")
+    fun getTopMovies(@Query("api_key") apiKey:String):Call<MovieResponse>
+
 }
