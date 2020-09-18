@@ -13,10 +13,10 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.recycler.MovieAdapter
+import com.google.android.youtube.player.YouTubeBaseActivity
 
 
-
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     val youtubeAPIkey = "AIzaSyAGF4s6LEPwk80wuf7v0gUG5ey8jNQS17I"
     private val mainViewModel: MainViewModel by viewModels()
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(){
 
         mainViewModel.loadMovieData()
 
-        val navController=Navigation
+        val navController= Navigation
             .findNavController(this,R.id.main_container)
 
         NavigationUI.setupWithNavController(navigation_bottom,navController)
@@ -63,10 +63,10 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun bindMovieData(movie: List<Movie>)
-    {
+    {/*
         recycler_view.hasFixedSize()
         recycler_view.layoutManager = GridLayoutManager(this@MainActivity ,2)
-        recycler_view.adapter = MovieAdapter( movie )
+        recycler_view.adapter = MovieAdapter( movie )*/
     }
 
     private fun handelMovieError(errorMsg: String)

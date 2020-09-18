@@ -9,20 +9,41 @@
         android:id="@+id/blankFragment3"
         android:name="com.example.myapplication.BlankFragment3"
         android:label="top_movies_fragment"
-        tools:layout="@layout/top_movies_fragment" />
+        tools:layout="@layout/top_movies_fragment" >
+        <action
+            android:id="@+id/action_blankFragment3_to_blankFragment4"
+            app:destination="@id/blankFragment4" />
+    </fragment>
     <fragment
         android:id="@+id/blankFragment"
         android:name="com.example.myapplication.BlankFragment"
         android:label="popular_movies_fragment"
-        tools:layout="@layout/popular_movies_fragment" />
+        tools:layout="@layout/popular_movies_fragment" >
+        <action
+            android:id="@+id/action_blankFragment_to_blankFragment4"
+            app:destination="@id/blankFragment4" />
+    </fragment>
     <fragment
         android:id="@+id/blankFragment2"
         android:name="com.example.myapplication.BlankFragment2"
         android:label="favourites_fragment"
-        tools:layout="@layout/favourites_fragment" />
+        tools:layout="@layout/favourites_fragment" >
+        <action
+            android:id="@+id/action_blankFragment2_to_blankFragment4"
+            app:destination="@id/blankFragment4" />
+    </fragment>
     <fragment
         android:id="@+id/blankFragment4"
         android:name="com.example.myapplication.BlankFragment4"
         android:label="details_fragment"
-        tools:layout="@layout/details_fragment" />
+        tools:layout="@layout/details_fragment" >
+        <action
+            android:id="@+id/action_blankFragment4_to_blankFragment5"
+            app:destination="@id/blankFragment5" />
+    </fragment>
+    <fragment
+        android:id="@+id/blankFragment5"
+        android:name="com.example.myapplication.BlankFragment5"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" />
 </navigation>
