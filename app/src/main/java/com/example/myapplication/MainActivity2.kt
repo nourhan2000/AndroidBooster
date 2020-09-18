@@ -29,5 +29,4 @@ class MainActivity2 : AppCompatActivity() {
         Picasso.get().load(photo).into(imageView2)
     }
 
-
 }
