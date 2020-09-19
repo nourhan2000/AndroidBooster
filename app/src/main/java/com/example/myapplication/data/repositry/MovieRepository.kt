@@ -116,7 +116,7 @@ private val apiClient: APIinterface by lazy {
             callback.onVidsAvailable(vidData)
             return
         }
-        apiClient.getMovieVideos(apiKey, movieId).enqueue(object: Callback<VideoResponse>{
+        apiClient.getMovieVideos(movieId,apiKey).enqueue(object: Callback<VideoResponse>{
             override fun onResponse(call: Call<VideoResponse>, response: Response<VideoResponse>) {
                 if(response.isSuccessful) {
                     videoResponse=response.body()!!
@@ -147,7 +147,7 @@ private val apiClient: APIinterface by lazy {
         }
 
 
-        apiClient.getMovieReviews(apiKey,movieId)
+        apiClient.getMovieReviews(movieId,apiKey)
             .enqueue(object: Callback<ReviewResponse>{
                 override fun onResponse(call: Call<ReviewResponse>, response: Response<ReviewResponse>)
                 {
