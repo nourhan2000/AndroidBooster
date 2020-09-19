@@ -18,7 +18,7 @@ class FavouritesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =inflater.inflate(R.layout.top_movies_fragment, container, false)
+        val view =inflater.inflate(R.layout.favourites_fragment, container, false)
         activity?.let{
             mainViewModel=ViewModelProvider(this).get(MainViewModel::class.java)
         }
