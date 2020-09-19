@@ -1,6 +1,7 @@
 package com.example.myapplication.data.repositry
 
 import android.content.Context
+import com.example.myapplication.data.database.Movies.FavMovieDatabase
 import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.data.database.Movies.MoviesDatabase
 import com.example.myapplication.data.database.Movies.TopMoviesDatabase
@@ -24,6 +25,7 @@ object MovieRepository {
     private lateinit var topMoviesDatabase: TopMoviesDatabase
     private lateinit var videoDatabase: VideoDatabase
     private lateinit var reviewDatabase: ReviewDatabase
+    private lateinit var favMovieDatabase : FavMovieDatabase
 
 private val apiClient: APIinterface by lazy {
     APIclient.getClient().create(APIinterface::class.java)
@@ -40,6 +42,7 @@ private val apiClient: APIinterface by lazy {
     val mapper = Mapper()
     private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
     private lateinit var msg:String
+    private lateinit var favMovies:MutableList<Movie>
 
 
     fun requestMovies(callback: MovieCallBack){
@@ -110,6 +113,29 @@ private val apiClient: APIinterface by lazy {
             })
     }
 
+    fun requestFavMovies(callBack: FavoriteCallBack){
+        if(favMovies.size==0) {
+            movieData.forEach {
+                if (it.isFavorite)
+                    favMovies.add(it)
+            }
+            topMovieData.forEach {
+                if (it.isFavorite)
+                    favMovies.add(it)
+            }
+            favMovieDatabase.getFavMovieDao().addMovies(favMovies)
+        }
+
+        if(favMovies.size==0){
+            msg="No favorites yet"
+            callBack.onFavMoviesUnavailable(msg)
+        }
+        else{
+        callBack.onFavMoviesAvailable(favMovieDatabase.getFavMovieDao().getMovies())
+        }
+
+    }
+
 
     fun requestVids(callback: VidCallBack,movieId:Long){
         if(this::vidData.isInitialized){
@@ -138,6 +164,7 @@ private val apiClient: APIinterface by lazy {
 
         })
     }
+
 
     fun requestMovieReviews(callback: ReviewCallBack,movieId: Long){
 
@@ -179,6 +206,7 @@ private val apiClient: APIinterface by lazy {
         topMoviesDatabase= TopMoviesDatabase.getDatabase(context)
         videoDatabase= VideoDatabase.getDatabase(context)
         reviewDatabase= ReviewDatabase.getDatabase(context)
+        favMovieDatabase = FavMovieDatabase.getDatabase(context)
     }
 
     interface MovieCallBack{
@@ -198,5 +226,10 @@ private val apiClient: APIinterface by lazy {
     interface ReviewCallBack{
         fun onReviewAvailable(reviews: List<Review>)
         fun onReviewUnavailable(msg:String)
+    }
+
+    interface FavoriteCallBack{
+        fun onFavMoviesAvailable(movies: List<Movie>)
+        fun onFavMoviesUnavailable(msg:String)
     }
 }

@@ -1,9 +1,6 @@
 package com.example.myapplication.data.database.Movies
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface FavoriteDao {
@@ -12,5 +9,11 @@ interface FavoriteDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addMovies(Movies: List<Movie>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addMovie (movie: Movie)
+
+    @Delete
+    fun deleteMovie(movie: Movie)
 
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 import kotlinx.android.synthetic.main.favourites_fragment.*
+import kotlinx.android.synthetic.main.top_movies_fragment.*
 
 
 class FavouritesFragment : Fragment() {
@@ -27,10 +28,17 @@ class FavouritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var favs=mainViewModel.loadFavMovie()
-        if (favs.isNotEmpty()) {
-            bindMovieData(favs, recycler_view_fav, requireActivity())
-        }
+        mainViewModel.onError.observe(viewLifecycleOwner,{
+            handelMovieError(it,requireActivity())
+        })
+
+        mainViewModel.favMovieLiveData
+            .observe(viewLifecycleOwner, {
+                bindMovieData(it,recycler_view_fav ,requireActivity())
+
+            })
+
+        mainViewModel.loadFavMovie()
     }
 
 
