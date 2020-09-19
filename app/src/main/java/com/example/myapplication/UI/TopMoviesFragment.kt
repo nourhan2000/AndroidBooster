@@ -39,7 +39,7 @@ class TopMoviesFragment : Fragment() {
 
             })
 
-        mainViewModel.loadMovieData()
+        mainViewModel.loadTopMovieData()
 
 
     }
