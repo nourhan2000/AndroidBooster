@@ -22,12 +22,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mainViewModel.onError.observe(this, {
-            handelMovieError(it)
+
         })
 
         mainViewModel.movieLiveData
             .observe(this, {
-                bindMovieData(it)
+
                 it.forEach {
                     mainViewModel.loadMovieReviews(it.movieId)
                     mainViewModel.loadMovieVideo(it.movieId)
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             })
         mainViewModel.topMovieLiveData
             .observe(this, {
-                bindMovieData(it)
+
                 it.forEach {
                     mainViewModel.loadMovieReviews(it.movieId)
                     mainViewModel.loadMovieVideo(it.movieId)
@@ -43,6 +43,14 @@ class MainActivity : AppCompatActivity() {
             })
 
         mainViewModel.loadMovieData()
+
+        mainViewModel.reviewLiveData.observe(this,{
+
+        })
+        mainViewModel.videoLiveData.observe(this,{
+
+        })
+
 
         val navController= Navigation
             .findNavController(this, R.id.main_container)
@@ -52,27 +60,8 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration= AppBarConfiguration(navController.graph)
         toolbar.setupWithNavController(navController,appBarConfiguration)
 
-        mainViewModel.reviewLiveData.observe(this,{
 
-        })
-        mainViewModel.videoLiveData.observe(this,{
-
-        })
 
     }
-
-    private fun bindMovieData(movie: List<Movie>)
-    {/*
-        recycler_view.hasFixedSize()
-        recycler_view.layoutManager = GridLayoutManager(this@MainActivity ,2)
-        recycler_view.adapter = MovieAdapter( movie )*/
-    }
-
-    private fun handelMovieError(errorMsg: String)
-    {
-        Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_LONG).show()
-    }
-
-
 
 }
