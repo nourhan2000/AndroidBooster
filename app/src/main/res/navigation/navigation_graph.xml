@@ -13,18 +13,7 @@
         <action
             android:id="@+id/action_blankFragment3_to_blankFragment4"
             app:destination="@id/blankFragment4" />
-        <argument
-            android:name="photo"
-            app:argType="string" />
-        <argument
-            android:name="date"
-            app:argType="string" />
-        <argument
-            android:name="overView"
-            app:argType="string" />
-        <argument
-            android:name="vote"
-            app:argType="string" />
+
     </fragment>
     <fragment
         android:id="@+id/popular_movies"
@@ -49,16 +38,20 @@
         android:name="com.example.myapplication.UI.DetailsFragment"
         android:label="Details"
         tools:layout="@layout/details_fragment">
-        <action
-            android:id="@+id/action_blankFragment4_to_blankFragment5"
-            app:destination="@id/blankFragment5" />
         <argument
             android:name="movie_id"
             app:argType="long" />
+        <argument
+            android:name="photo"
+            app:argType="string" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="overView"
+            app:argType="string" />
+        <argument
+            android:name="vote"
+            app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/blankFragment5"
-        android:name="com.example.myapplication.UI.VidFragment"
-        android:label="Video"
-        tools:layout="@layout/vid_fragment" />
 </navigation>

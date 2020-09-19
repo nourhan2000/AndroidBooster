@@ -30,8 +30,6 @@ class TopMoviesFragment : Fragment() {
             handelMovieError(it,requireContext())
         })
 
-
-
         mainViewModel.topMovieLiveData
             .observe(viewLifecycleOwner, {
                 bindMovieData(it,recycler_view_top ,requireActivity())
@@ -40,7 +38,6 @@ class TopMoviesFragment : Fragment() {
 
         mainViewModel.loadMovieData()
 
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.top_movies_fragment, container, false)
     }
 
