@@ -46,6 +46,7 @@ class MainViewModel (application: Application)
 
     init{
         MovieRepository.createDatabase(application)
+
     }
 
     fun loadFavMovie():List<Movie>{

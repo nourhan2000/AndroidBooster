@@ -30,7 +30,7 @@ class TopMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainViewModel.onError.observe(viewLifecycleOwner,{
-            handelMovieError(it,requireContext())
+            handelMovieError(it,requireActivity())
         })
 
         mainViewModel.topMovieLiveData

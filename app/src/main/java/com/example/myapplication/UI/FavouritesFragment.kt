@@ -28,8 +28,9 @@ class FavouritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var favs=mainViewModel.loadFavMovie()
-        bindMovieData(favs,recycler_view_fav,requireActivity())
-
+        if (favs.isNotEmpty()) {
+            bindMovieData(favs, recycler_view_fav, requireActivity())
+        }
     }
 
 
