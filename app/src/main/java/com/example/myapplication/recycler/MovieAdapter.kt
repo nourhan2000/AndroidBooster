@@ -52,7 +52,9 @@ class MovieAdapter (private val postList :List<Movie>): RecyclerView.Adapter<Mov
             }
         }
     }
-        override fun getItemCount(): Int {
-            return postList.size
-        }
+
+    override fun getItemCount(): Int {
+        return postList.size
     }
+
+}

@@ -3,6 +3,7 @@ package com.example.myapplication.data.repositry
 import android.content.Context
 import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.data.database.Movies.MoviesDatabase
+import com.example.myapplication.data.database.Movies.TopMoviesDatabase
 import com.example.myapplication.data.database.Reviews.Review
 import com.example.myapplication.data.database.Reviews.ReviewDatabase
 import com.example.myapplication.data.database.Videos.Video
@@ -20,6 +21,7 @@ import retrofit2.Response
 object MovieRepository {
 
     private lateinit var moviesDatabase: MoviesDatabase
+    private lateinit var topMoviesDatabase: TopMoviesDatabase
     private lateinit var videoDatabase: VideoDatabase
     private lateinit var reviewDatabase: ReviewDatabase
 
@@ -29,6 +31,8 @@ private val apiClient: APIinterface by lazy {
 
     lateinit var movieData : List<Movie>
     lateinit var movieResponse: MovieResponse
+    lateinit var topMovieData:List<Movie>
+    lateinit var topMovieResponse: MovieResponse
     lateinit var vidData:Video
     lateinit var videoResponse: VideoResponse
     lateinit var movieReview: ReviewResponse
@@ -72,6 +76,41 @@ private val apiClient: APIinterface by lazy {
         })
 
     }
+
+
+    fun requestTopMovies(callback: TopMovieCallBack){
+
+        if(this::topMovieData.isInitialized){
+            callback.onTopMoviesAvailable(topMovieData)
+            return
+        }
+        apiClient.getTopMovies(apiKey)
+            .enqueue(object: Callback<MovieResponse>{
+
+                override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                    if(response.isSuccessful) {
+                        topMovieResponse=response.body()!!
+                       topMovieData  = mapper.convertToMovie(topMovieResponse)
+                        topMoviesDatabase.getTopMoviesDao().addTopMovies(topMovieData)
+                        callback.onTopMoviesAvailable(topMovieData)
+                    } else if (response.code() == 404){
+                        msg ="The movies aren't found"
+                        callback.onTopMoviesUnavailable(msg)
+                        callback.onTopMoviesAvailable(topMoviesDatabase.getTopMoviesDao().getTopMovies())
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                    t.printStackTrace()
+                    msg ="Error while getting the movies"
+                    callback.onTopMoviesUnavailable(msg)
+                    callback.onTopMoviesAvailable(topMoviesDatabase.getTopMoviesDao().getTopMovies())
+                }
+
+            })
+    }
+
+
     fun requestVids(callback: VidCallBack,movieId:Long){
         if(this::vidData.isInitialized){
             callback.onVidsAvailable(vidData)
@@ -137,12 +176,19 @@ private val apiClient: APIinterface by lazy {
 
     fun createDatabase(context: Context){
         moviesDatabase= MoviesDatabase.getDatabase(context)
+        topMoviesDatabase= TopMoviesDatabase.getDatabase(context)
         videoDatabase= VideoDatabase.getDatabase(context)
         reviewDatabase= ReviewDatabase.getDatabase(context)
     }
+
     interface MovieCallBack{
         fun onMoviesAvailable(movies: List<Movie>)
         fun onMoviesUnavailable(msg:String)
+    }
+
+    interface TopMovieCallBack{
+        fun onTopMoviesAvailable(movies: List<Movie>)
+        fun onTopMoviesUnavailable(msg:String)
     }
     interface VidCallBack{
         fun onVidsAvailable(vids:Video)

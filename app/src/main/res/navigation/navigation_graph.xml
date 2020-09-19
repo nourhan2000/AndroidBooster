@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/top_movies">
+
+    <fragment
+        android:id="@+id/top_movies"
+        android:name="com.example.myapplication.UI.TopMoviesFragment"
+        android:label="Top Movies"
+        tools:layout="@layout/top_movies_fragment">
+        <action
+            android:id="@+id/action_blankFragment3_to_blankFragment4"
+            app:destination="@id/blankFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/popular_movies"
+        android:name="com.example.myapplication.UI.PopularMoviesFragment"
+        android:label="Popular Movies"
+        tools:layout="@layout/popular_movies_fragment">
+        <action
+            android:id="@+id/action_blankFragment_to_blankFragment4"
+            app:destination="@id/blankFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/favourites"
+        android:name="com.example.myapplication.UI.FavouritesFragment"
+        android:label="Favourites"
+        tools:layout="@layout/favourites_fragment">
+        <action
+            android:id="@+id/action_blankFragment2_to_blankFragment4"
+            app:destination="@id/blankFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/blankFragment4"
+        android:name="com.example.myapplication.UI.DetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/details_fragment">
+        <action
+            android:id="@+id/action_blankFragment4_to_blankFragment5"
+            app:destination="@id/blankFragment5" />
+        <argument
+            android:name="movie_id"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/blankFragment5"
+        android:name="com.example.myapplication.UI.VidFragment"
+        android:label="Video"
+        tools:layout="@layout/vid_fragment" />
+</navigation>
