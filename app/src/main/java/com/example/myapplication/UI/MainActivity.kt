@@ -25,37 +25,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainViewModel.onError.observe(this, {
-
-        })
-
-        mainViewModel.movieLiveData
-            .observe(this, {
-
-                it.forEach {
-                    mainViewModel.loadMovieReviews(it.movieId)
-                    mainViewModel.loadMovieVideo(it.movieId)
-                }
-            })
-        mainViewModel.topMovieLiveData
-            .observe(this, {
-
-                it.forEach {
-                    mainViewModel.loadMovieReviews(it.movieId)
-                    mainViewModel.loadMovieVideo(it.movieId)
-                }
-            })
-
-        mainViewModel.loadMovieData()
-
-        mainViewModel.reviewLiveData.observe(this,{
-
-        })
-        mainViewModel.videoLiveData.observe(this,{
-
-        })
-
-
         val navController= Navigation
             .findNavController(this, R.id.main_container)
 
@@ -63,11 +32,35 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration= AppBarConfiguration(navController.graph)
         toolbar.setupWithNavController(navController,appBarConfiguration)
-
-
-
     }
-
-
-
 }
+//        mainViewModel.onError.observe(this, {
+//
+//        })
+//
+//        mainViewModel.movieLiveData
+//            .observe(this, {
+//
+//                it.forEach {
+//                    mainViewModel.loadMovieReviews(it.movieId)
+//                    mainViewModel.loadMovieVideo(it.movieId)
+//                }
+//            })
+//        mainViewModel.topMovieLiveData
+//            .observe(this, {
+//
+//                it.forEach {
+//                    mainViewModel.loadMovieReviews(it.movieId)
+//                    mainViewModel.loadMovieVideo(it.movieId)
+//                }
+//            })
+//
+//        mainViewModel.loadMovieData()
+//
+//        mainViewModel.reviewLiveData.observe(this,{
+//
+//        })
+//        mainViewModel.videoLiveData.observe(this,{
+//
+//        })
+

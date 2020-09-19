@@ -26,6 +26,12 @@ class TopMoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        return inflater.inflate(R.layout.top_movies_fragment, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mainViewModel.onError.observe(viewLifecycleOwner,{
             handelMovieError(it,requireContext())
         })
@@ -38,7 +44,7 @@ class TopMoviesFragment : Fragment() {
 
         mainViewModel.loadMovieData()
 
-        return inflater.inflate(R.layout.top_movies_fragment, container, false)
+
     }
 
 }
