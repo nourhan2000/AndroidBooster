@@ -3,31 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/blankFragment3">
+    app:startDestination="@id/top_movies">
 
     <fragment
-        android:id="@+id/blankFragment3"
+        android:id="@+id/top_movies"
         android:name="com.example.myapplication.UI.TopMoviesFragment"
-        android:label="top_movies_fragment"
-        tools:layout="@layout/top_movies_fragment" >
+        android:label="Top Movies"
+        tools:layout="@layout/top_movies_fragment">
         <action
             android:id="@+id/action_blankFragment3_to_blankFragment4"
             app:destination="@id/blankFragment4" />
     </fragment>
     <fragment
-        android:id="@+id/blankFragment"
+        android:id="@+id/popular_movies"
         android:name="com.example.myapplication.UI.PopularMoviesFragment"
-        android:label="popular_movies_fragment"
-        tools:layout="@layout/popular_movies_fragment" >
+        android:label="Popular Movies"
+        tools:layout="@layout/popular_movies_fragment">
         <action
             android:id="@+id/action_blankFragment_to_blankFragment4"
             app:destination="@id/blankFragment4" />
     </fragment>
     <fragment
-        android:id="@+id/blankFragment2"
+        android:id="@+id/favourites"
         android:name="com.example.myapplication.UI.FavouritesFragment"
-        android:label="favourites_fragment"
-        tools:layout="@layout/favourites_fragment" >
+        android:label="Favourites"
+        tools:layout="@layout/favourites_fragment">
         <action
             android:id="@+id/action_blankFragment2_to_blankFragment4"
             app:destination="@id/blankFragment4" />
@@ -35,15 +35,18 @@
     <fragment
         android:id="@+id/blankFragment4"
         android:name="com.example.myapplication.UI.DetailsFragment"
-        android:label="details_fragment"
-        tools:layout="@layout/details_fragment" >
+        android:label="Details"
+        tools:layout="@layout/details_fragment">
         <action
             android:id="@+id/action_blankFragment4_to_blankFragment5"
             app:destination="@id/blankFragment5" />
+        <argument
+            android:name="movie_id"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/blankFragment5"
         android:name="com.example.myapplication.UI.VidFragment"
-        android:label="vid_fragment"
+        android:label="Video"
         tools:layout="@layout/vid_fragment" />
 </navigation>

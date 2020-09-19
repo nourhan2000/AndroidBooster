@@ -11,17 +11,6 @@
         android:layout_height="wrap_content"
         >
 
-        <TextView
-            android:id="@+id/pop_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Popular Movies"
-            android:textColor="#407093"
-            android:textSize="28sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_pop"
         android:layout_width="0dp"
@@ -30,7 +19,7 @@
         android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pop_title"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
     </androidx.constraintlayout.widget.ConstraintLayout>

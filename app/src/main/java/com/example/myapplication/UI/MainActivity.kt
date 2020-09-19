@@ -5,7 +5,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication.R
 import com.example.myapplication.data.database.Movies.Movie
 
@@ -46,6 +48,9 @@ class MainActivity : AppCompatActivity() {
             .findNavController(this, R.id.main_container)
 
         NavigationUI.setupWithNavController(navigation_bottom,navController)
+
+        val appBarConfiguration= AppBarConfiguration(navController.graph)
+        toolbar.setupWithNavController(navController,appBarConfiguration)
 
         mainViewModel.reviewLiveData.observe(this,{
 
