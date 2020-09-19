@@ -33,14 +33,10 @@ class MovieAdapter (private val postList :List<Movie>): RecyclerView.Adapter<Mov
         holder.textViewTitle.text = movieModel.OriginalTitle
         val photo = "https://image.tmdb.org/t/p/w500/${movieModel.PosterPath}"
         Picasso.get().load(photo).into(holder.imageView)
-        holder.imageView.setOnClickListener() {
-            val intent = Intent(holder.itemView.context, MainActivity2::class.java)
-            intent.putExtra("photo", photo)
-            intent.putExtra("overView", movieModel.overview)
-            intent.putExtra("date", movieModel.releaseDate)
-            intent.putExtra("vote", movieModel.voteAverage.toString())
-            holder.itemView.context.startActivity(intent)
-        }
+      //  holder.imageView.setOnClickListener() {
+
+
+     //   }
 
         holder.favButton.setOnClickListener {
             if (movieModel.isFavorite == false) {
