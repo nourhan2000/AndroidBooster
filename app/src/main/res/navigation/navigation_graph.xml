@@ -13,6 +13,18 @@
         <action
             android:id="@+id/action_blankFragment3_to_blankFragment4"
             app:destination="@id/blankFragment4" />
+        <argument
+            android:name="photo"
+            app:argType="string" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="overView"
+            app:argType="string" />
+        <argument
+            android:name="vote"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/popular_movies"

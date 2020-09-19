@@ -42,12 +42,23 @@ class MainViewModel (application: Application)
     private lateinit var topMovieData: List<Movie>
     private lateinit var vidData:Video
     private lateinit var movieReviewDB: List<Review>
+    private lateinit var favMovies:MutableList<Movie>
 
     init{
         MovieRepository.createDatabase(application)
     }
 
-
+    fun loadFavMovie():List<Movie>{
+        movieData.forEach{
+            if (it.isFavorite)
+              favMovies.add(it)
+        }
+        topMovieData.forEach{
+            if(it.isFavorite)
+                favMovies.add(it)
+        }
+        return favMovies
+    }
 
     fun loadMovieData() {
         if(this::movieData.isInitialized) {
