@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
+import kotlinx.android.synthetic.main.horizental_item.*
 import kotlinx.android.synthetic.main.top_movies_fragment.*
 
 
@@ -14,20 +15,16 @@ class TopMoviesFragment : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mainViewModel=activity?.run{
-            ViewModelProvider(this).get(MainViewModel::class.java)
-        } ?: throw Exception("Invalid Activity")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.top_movies_fragment, container, false)
-    }
+        val view =inflater.inflate(R.layout.top_movies_fragment, container, false)
+         activity?.let{
+             mainViewModel=ViewModelProvider(this).get(MainViewModel::class.java)
+        }
+        return view }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

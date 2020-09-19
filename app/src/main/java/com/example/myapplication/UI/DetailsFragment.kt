@@ -15,19 +15,15 @@ class DetailsFragment : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mainViewModel=activity?.run{
-            ViewModelProvider(this).get(MainViewModel::class.java)
-        } ?: throw Exception("Invalid Activity")
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.details_fragment, container, false)
+        val view =inflater.inflate(R.layout.top_movies_fragment, container, false)
+        activity?.let{
+            mainViewModel=ViewModelProvider(this).get(MainViewModel::class.java)
+        }
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
