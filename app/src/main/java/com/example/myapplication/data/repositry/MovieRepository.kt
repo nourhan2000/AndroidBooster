@@ -157,6 +157,7 @@ private val apiClient: APIinterface by lazy {
             }
 
             override fun onFailure(call: Call<VideoResponse>, t: Throwable) {
+                t.printStackTrace()
                 msg ="Error while getting the videos"
                 callback.onVidsUnavailable(msg)
                 callback.onVidsAvailable(videoDatabase.getVidsDao().getVids())
@@ -191,6 +192,7 @@ private val apiClient: APIinterface by lazy {
                 }
 
                 override fun onFailure(call: Call<ReviewResponse>, t: Throwable) {
+                    t.printStackTrace()
                     msg ="error while getting reviews"
                     callback.onReviewUnavailable(msg)
                     callback.onReviewAvailable(reviewDatabase.getReviewsDao().getReviews())
@@ -219,7 +221,7 @@ private val apiClient: APIinterface by lazy {
         fun onTopMoviesUnavailable(msg:String)
     }
     interface VidCallBack{
-        fun onVidsAvailable(vids:Video)
+        fun onVidsAvailable(vids:Video?)
         fun onVidsUnavailable(msg:String)
     }
 

@@ -108,9 +108,11 @@ class MainViewModel (application: Application)
         _topMovieLiveData.value = topMovieData
     }
 
-    override fun onVidsAvailable(vids: Video) {
-        vidData=vids
-        _videoLiveData.value=vidData
+    override fun onVidsAvailable(vids: Video?) {
+        if(vids!=null){
+            vidData=vids
+            _videoLiveData.value=vidData
+        }
     }
 
     override fun onVidsUnavailable(msg: String) {

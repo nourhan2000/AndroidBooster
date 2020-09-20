@@ -21,6 +21,7 @@ class DetailsFragment : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var intent:Intent
+    private var vidKey:String=" "
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,12 +56,16 @@ class DetailsFragment : Fragment() {
         })
         mainViewModel.loadMovieReviews(movieId)
 
+
+
         mainViewModel.videoLiveData.observe(viewLifecycleOwner,{
-            intent = YouTubeStandalonePlayer.createVideoIntent(requireActivity(), youtubeAPIkey,it.vidKey)
+            if(it.vidKey!=null)
+                vidKey=it.vidKey
         })
         mainViewModel.loadMovieVideo(movieId)
 
         vid_button.setOnClickListener{
+            intent = YouTubeStandalonePlayer.createVideoIntent(requireActivity(), youtubeAPIkey, vidKey)
             startActivity(intent)
         }
 
