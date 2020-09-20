@@ -7,9 +7,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.MainActivity2
 import com.example.myapplication.R
+import com.example.myapplication.UI.DetailsFragment
+import com.example.myapplication.UI.FavouritesFragment
+import com.example.myapplication.UI.FavouritesFragmentDirections
 import com.example.myapplication.data.database.Movies.FavMovieDatabase
 import com.example.myapplication.data.database.Movies.Movie
 import com.squareup.picasso.Picasso
@@ -38,6 +44,10 @@ class MovieAdapter (private val postList :List<Movie>): RecyclerView.Adapter<Mov
         val photo = "https://image.tmdb.org/t/p/w500/${movieModel.PosterPath}"
         Picasso.get().load(photo).into(holder.imageView)
         holder.imageView.setOnClickListener() {
+
+            findNavController(holder.itemView).navigate( R.id.action_blankFragment3_to_blankFragment4)
+            findNavController(holder.itemView).navigate( R.id.action_blankFragment2_to_blankFragment4)
+            findNavController(holder.itemView).navigate( R.id.action_blankFragment_to_blankFragment4)
 
         }
 
