@@ -11,6 +11,6 @@ interface VideosDao {
     fun getVids(): Video
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addVids(Movies: Video)
+    fun addVids(Vids: Video)
 
 }
