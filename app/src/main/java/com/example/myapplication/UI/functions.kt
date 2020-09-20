@@ -8,10 +8,11 @@ import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.recycler.MovieAdapter
 
 
-fun bindMovieData(movie: List<Movie>,recyclerView: RecyclerView,context: Context)
+fun bindMovieData(movie: List<Movie>,recyclerView: RecyclerView,context: Context,type:String)
 {
     recyclerView.hasFixedSize()
     recyclerView.layoutManager = GridLayoutManager(context,2)
+    MovieAdapter.type = type
     recyclerView.adapter = MovieAdapter( movie )
 }
 

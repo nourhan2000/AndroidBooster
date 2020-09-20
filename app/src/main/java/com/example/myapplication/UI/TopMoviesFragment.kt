@@ -35,7 +35,7 @@ class TopMoviesFragment : Fragment() {
 
         mainViewModel.topMovieLiveData
             .observe(viewLifecycleOwner, {
-                bindMovieData(it,recycler_view_top ,requireActivity())
+                bindMovieData(it,recycler_view_top ,requireActivity(),"top")
 
             })
 

@@ -36,7 +36,7 @@ class PopularMoviesFragment : Fragment() {
         })
         mainViewModel.movieLiveData
             .observe(viewLifecycleOwner, {
-                bindMovieData(it,recycler_view_pop,requireActivity())
+                bindMovieData(it,recycler_view_pop,requireActivity(),"pop")
             })
 
         mainViewModel.loadMovieData()
