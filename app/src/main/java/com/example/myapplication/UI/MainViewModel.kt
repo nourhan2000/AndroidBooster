@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.UI
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -11,12 +11,23 @@ import com.example.myapplication.data.repositry.MovieRepository
 
 
 class MainViewModel (application: Application)
-    : AndroidViewModel(application), MovieRepository.MovieCallBack, MovieRepository.ReviewCallBack, MovieRepository.VidCallBack  {
+    : AndroidViewModel(application), MovieRepository.MovieCallBack, MovieRepository.TopMovieCallBack,
+    MovieRepository.ReviewCallBack, MovieRepository.VidCallBack,MovieRepository.FavoriteCallBack  {
 
     private val _movieLiveData: MutableLiveData<List<Movie>>
             by lazy { MutableLiveData() }
     val movieLiveData: LiveData<List<Movie>>
         get() = _movieLiveData
+
+    private val _topMovieLiveData: MutableLiveData<List<Movie>>
+            by lazy { MutableLiveData() }
+    val topMovieLiveData: LiveData<List<Movie>>
+        get() = _topMovieLiveData
+
+    private val _favMovieLiveData: MutableLiveData<List<Movie>>
+            by lazy { MutableLiveData() }
+    val favMovieLiveData: LiveData<List<Movie>>
+        get() = _favMovieLiveData
 
     private val _videoLiveData: MutableLiveData<Video>
             by lazy { MutableLiveData() }
@@ -34,14 +45,22 @@ class MainViewModel (application: Application)
         get() = _onError
 
     private lateinit var movieData: List<Movie>
+    private lateinit var topMovieData: List<Movie>
     private lateinit var vidData:Video
     private lateinit var movieReviewDB: List<Review>
+    private lateinit var favMovies:List<Movie>
 
     init{
         MovieRepository.createDatabase(application)
     }
 
-
+    fun loadFavMovie(){
+       if (this::favMovies.isInitialized){
+           _favMovieLiveData.value=favMovies
+           return
+       }
+        MovieRepository.requestFavMovies(this)
+    }
 
     fun loadMovieData() {
         if(this::movieData.isInitialized) {
@@ -49,6 +68,13 @@ class MainViewModel (application: Application)
             return}
             MovieRepository.requestMovies(this)
     }
+    fun loadTopMovieData() {
+        if(this::topMovieData.isInitialized) {
+            _topMovieLiveData.value = topMovieData
+            return}
+        MovieRepository.requestTopMovies(this)
+    }
+
 
     fun loadMovieVideo(movieId:Long){
         if(this::vidData.isInitialized){
@@ -73,6 +99,15 @@ class MainViewModel (application: Application)
         _movieLiveData.value = movieData
     }
 
+    override fun onTopMoviesUnavailable(msg: String) {
+        _onError.value = msg
+    }
+
+    override fun onTopMoviesAvailable(movies: List<Movie>) {
+        topMovieData = movies
+        _topMovieLiveData.value = topMovieData
+    }
+
     override fun onVidsAvailable(vids: Video) {
         vidData=vids
         _videoLiveData.value=vidData
@@ -88,6 +123,15 @@ class MainViewModel (application: Application)
     }
 
     override fun onReviewUnavailable(msg: String) {
+        _onError.value = msg
+    }
+
+    override fun onFavMoviesAvailable(movies: List<Movie>) {
+        favMovies = movies
+        _favMovieLiveData.value=favMovies
+    }
+
+    override fun onFavMoviesUnavailable(msg: String) {
         _onError.value = msg
     }
 }

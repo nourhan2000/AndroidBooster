@@ -1,8 +1,10 @@
 package com.example.myapplication.data.repositry
 
 import android.content.Context
+import com.example.myapplication.data.database.Movies.FavMovieDatabase
 import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.data.database.Movies.MoviesDatabase
+import com.example.myapplication.data.database.Movies.TopMoviesDatabase
 import com.example.myapplication.data.database.Reviews.Review
 import com.example.myapplication.data.database.Reviews.ReviewDatabase
 import com.example.myapplication.data.database.Videos.Video
@@ -20,8 +22,10 @@ import retrofit2.Response
 object MovieRepository {
 
     private lateinit var moviesDatabase: MoviesDatabase
+    private lateinit var topMoviesDatabase: TopMoviesDatabase
     private lateinit var videoDatabase: VideoDatabase
     private lateinit var reviewDatabase: ReviewDatabase
+    private lateinit var favMovieDatabase : FavMovieDatabase
 
 private val apiClient: APIinterface by lazy {
     APIclient.getClient().create(APIinterface::class.java)
@@ -29,6 +33,8 @@ private val apiClient: APIinterface by lazy {
 
     lateinit var movieData : List<Movie>
     lateinit var movieResponse: MovieResponse
+    lateinit var topMovieData:List<Movie>
+    lateinit var topMovieResponse: MovieResponse
     lateinit var vidData:Video
     lateinit var videoResponse: VideoResponse
     lateinit var movieReview: ReviewResponse
@@ -36,6 +42,7 @@ private val apiClient: APIinterface by lazy {
     val mapper = Mapper()
     private const val apiKey="2f1e25eb96a6de2a07fb4df24ebb1c19"
     private lateinit var msg:String
+    private lateinit var favMovies:MutableList<Movie>
 
 
     fun requestMovies(callback: MovieCallBack){
@@ -72,12 +79,70 @@ private val apiClient: APIinterface by lazy {
         })
 
     }
+
+
+    fun requestTopMovies(callback: TopMovieCallBack){
+
+        if(this::topMovieData.isInitialized){
+            callback.onTopMoviesAvailable(topMovieData)
+            return
+        }
+        apiClient.getTopMovies(apiKey)
+            .enqueue(object: Callback<MovieResponse>{
+
+                override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                    if(response.isSuccessful) {
+                        topMovieResponse=response.body()!!
+                       topMovieData  = mapper.convertToMovie(topMovieResponse)
+                        topMoviesDatabase.getTopMoviesDao().addTopMovies(topMovieData)
+                        callback.onTopMoviesAvailable(topMovieData)
+                    } else if (response.code() == 404){
+                        msg ="The movies aren't found"
+                        callback.onTopMoviesUnavailable(msg)
+                        callback.onTopMoviesAvailable(topMoviesDatabase.getTopMoviesDao().getTopMovies())
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                    t.printStackTrace()
+                    msg ="Error while getting the movies"
+                    callback.onTopMoviesUnavailable(msg)
+                    callback.onTopMoviesAvailable(topMoviesDatabase.getTopMoviesDao().getTopMovies())
+                }
+
+            })
+    }
+
+    fun requestFavMovies(callBack: FavoriteCallBack){
+        if(favMovies.size==0) {
+            movieData.forEach {
+                if (it.isFavorite)
+                    favMovies.add(it)
+            }
+            topMovieData.forEach {
+                if (it.isFavorite)
+                    favMovies.add(it)
+            }
+            favMovieDatabase.getFavMovieDao().addMovies(favMovies)
+        }
+
+        if(favMovies.size==0){
+            msg="No favorites yet"
+            callBack.onFavMoviesUnavailable(msg)
+        }
+        else{
+        callBack.onFavMoviesAvailable(favMovieDatabase.getFavMovieDao().getMovies())
+        }
+
+    }
+
+
     fun requestVids(callback: VidCallBack,movieId:Long){
         if(this::vidData.isInitialized){
             callback.onVidsAvailable(vidData)
             return
         }
-        apiClient.getMovieVideos(apiKey, movieId).enqueue(object: Callback<VideoResponse>{
+        apiClient.getMovieVideos(movieId,apiKey).enqueue(object: Callback<VideoResponse>{
             override fun onResponse(call: Call<VideoResponse>, response: Response<VideoResponse>) {
                 if(response.isSuccessful) {
                     videoResponse=response.body()!!
@@ -100,6 +165,7 @@ private val apiClient: APIinterface by lazy {
         })
     }
 
+
     fun requestMovieReviews(callback: ReviewCallBack,movieId: Long){
 
         if(this::movieReviewDB.isInitialized){
@@ -108,7 +174,7 @@ private val apiClient: APIinterface by lazy {
         }
 
 
-        apiClient.getMovieReviews(apiKey,movieId)
+        apiClient.getMovieReviews(movieId,apiKey)
             .enqueue(object: Callback<ReviewResponse>{
                 override fun onResponse(call: Call<ReviewResponse>, response: Response<ReviewResponse>)
                 {
@@ -137,13 +203,20 @@ private val apiClient: APIinterface by lazy {
 
     fun createDatabase(context: Context){
         moviesDatabase= MoviesDatabase.getDatabase(context)
+        topMoviesDatabase= TopMoviesDatabase.getDatabase(context)
         videoDatabase= VideoDatabase.getDatabase(context)
         reviewDatabase= ReviewDatabase.getDatabase(context)
+        favMovieDatabase = FavMovieDatabase.getDatabase(context)
     }
 
     interface MovieCallBack{
         fun onMoviesAvailable(movies: List<Movie>)
         fun onMoviesUnavailable(msg:String)
+    }
+
+    interface TopMovieCallBack{
+        fun onTopMoviesAvailable(movies: List<Movie>)
+        fun onTopMoviesUnavailable(msg:String)
     }
     interface VidCallBack{
         fun onVidsAvailable(vids:Video)
@@ -153,5 +226,10 @@ private val apiClient: APIinterface by lazy {
     interface ReviewCallBack{
         fun onReviewAvailable(reviews: List<Review>)
         fun onReviewUnavailable(msg:String)
+    }
+
+    interface FavoriteCallBack{
+        fun onFavMoviesAvailable(movies: List<Movie>)
+        fun onFavMoviesUnavailable(msg:String)
     }
 }

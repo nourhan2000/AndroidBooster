@@ -1,16 +1,12 @@
 package com.example.myapplication.recycler
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.MainActivity2
 import com.example.myapplication.R
 import com.example.myapplication.data.database.Reviews.Review
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.review_item.view.*
 
 class ReviewAdapter(private val postList :List<Review>): RecyclerView.Adapter<ReviewAdapter.ReviewItemViewHolder>() {

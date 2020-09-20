@@ -3,26 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/blankFragment3">
+    app:startDestination="@id/top_movies">
 
     <fragment
-        android:id="@+id/blankFragment3"
-        android:name="com.example.myapplication.BlankFragment3"
-        android:label="top_movies_fragment"
-        tools:layout="@layout/top_movies_fragment" />
+        android:id="@+id/top_movies"
+        android:name="com.example.myapplication.UI.TopMoviesFragment"
+        android:label="Top Movies"
+        tools:layout="@layout/top_movies_fragment">
+        <action
+            android:id="@+id/action_blankFragment3_to_blankFragment4"
+            app:destination="@id/blankFragment4" />
+
+    </fragment>
     <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.example.myapplication.BlankFragment"
-        android:label="popular_movies_fragment"
-        tools:layout="@layout/popular_movies_fragment" />
+        android:id="@+id/popular_movies"
+        android:name="com.example.myapplication.UI.PopularMoviesFragment"
+        android:label="Popular Movies"
+        tools:layout="@layout/popular_movies_fragment">
+        <action
+            android:id="@+id/action_blankFragment_to_blankFragment4"
+            app:destination="@id/blankFragment4" />
+    </fragment>
     <fragment
-        android:id="@+id/blankFragment2"
-        android:name="com.example.myapplication.BlankFragment2"
-        android:label="favourites_fragment"
-        tools:layout="@layout/favourites_fragment" />
+        android:id="@+id/favourites"
+        android:name="com.example.myapplication.UI.FavouritesFragment"
+        android:label="Favourites"
+        tools:layout="@layout/favourites_fragment">
+        <action
+            android:id="@+id/action_blankFragment2_to_blankFragment4"
+            app:destination="@id/blankFragment4" />
+    </fragment>
     <fragment
         android:id="@+id/blankFragment4"
-        android:name="com.example.myapplication.BlankFragment4"
-        android:label="details_fragment"
-        tools:layout="@layout/details_fragment" />
+        android:name="com.example.myapplication.UI.DetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/details_fragment">
+        <argument
+            android:name="movie_id"
+            app:argType="long" />
+        <argument
+            android:name="photo"
+            app:argType="string" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="overView"
+            app:argType="string" />
+        <argument
+            android:name="vote"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -12,10 +12,15 @@ interface APIinterface {
 
     @GET("movie/popular")
     fun getPopularMovie(@Query ("api_key") apiKey:String): Call<MovieResponse >
+
     @GET("movie/{movie_id}/reviews")
-    fun getMovieReviews(@Query ("api_key") apiKey:String, @Path("movie_id") movieId:Long): Call<ReviewResponse>
+    fun getMovieReviews(@Path("movie_id") movieId:Long, @Query ("api_key") apiKey:String, ): Call<ReviewResponse>
 
 
     @GET("movie/{movie_id}/videos")
-    fun getMovieVideos(@Query ("api_key") apiKey:String, @Path("movie_id") movieId:Long): Call<VideoResponse>
+    fun getMovieVideos( @Path("movie_id") movieId:Long,@Query ("api_key") apiKey:String): Call<VideoResponse>
+
+    @GET("movie/top_rated")
+    fun getTopMovies(@Query("api_key") apiKey:String):Call<MovieResponse>
+
 }
