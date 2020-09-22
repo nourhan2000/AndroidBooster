@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
+import com.example.myapplication.recycler.MovieAdapter
 import kotlinx.android.synthetic.main.horizental_item.*
 import kotlinx.android.synthetic.main.top_movies_fragment.*
 
@@ -26,6 +28,11 @@ class TopMoviesFragment : Fragment() {
         }
         return view }
 
+    private lateinit var Adapter: MovieAdapter
+    var page = 1
+    var isPagination = false
+    val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,7 +46,7 @@ class TopMoviesFragment : Fragment() {
 
             })
 
-        mainViewModel.loadTopMovieData()
+        mainViewModel.loadTopMovieData(myPage = page)
 
 
     }

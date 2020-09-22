@@ -62,17 +62,17 @@ class MainViewModel (application: Application)
         MovieRepository.requestFavMovies(this)
     }
 
-    fun loadMovieData() {
+    fun loadMovieData(myPage: Int) {
         if(this::movieData.isInitialized) {
             _movieLiveData.value = movieData
             return}
-            MovieRepository.requestMovies(this)
+            MovieRepository.requestMovies(this, myPage)
     }
-    fun loadTopMovieData() {
+    fun loadTopMovieData(myPage: Int) {
         if(this::topMovieData.isInitialized) {
             _topMovieLiveData.value = topMovieData
             return}
-        MovieRepository.requestTopMovies(this)
+        MovieRepository.requestTopMovies(this, myPage)
     }
 
 

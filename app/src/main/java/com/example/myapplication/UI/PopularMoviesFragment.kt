@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
+import com.example.myapplication.recycler.MovieAdapter
 import kotlinx.android.synthetic.main.popular_movies_fragment.*
 
 
@@ -27,6 +29,11 @@ class PopularMoviesFragment : Fragment() {
         return view
     }
 
+    private lateinit var Adapter: MovieAdapter
+    var page = 1
+    var isPagination = false
+    val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,7 +46,7 @@ class PopularMoviesFragment : Fragment() {
                 bindMovieData(it,recycler_view_pop,requireActivity(),"pop")
             })
 
-        mainViewModel.loadMovieData()
+        mainViewModel.loadMovieData(myPage = page)
 
         }
     }

@@ -45,7 +45,7 @@ private val apiClient: APIinterface by lazy {
     private lateinit var favMovies:MutableList<Movie>
 
 
-    fun requestMovies(callback: MovieCallBack){
+    fun requestMovies(callback: MovieCallBack, myPage: Int){
 
         if(this::movieData.isInitialized){
             callback.onMoviesAvailable(movieData)
@@ -53,7 +53,7 @@ private val apiClient: APIinterface by lazy {
         }
 
 
-        apiClient.getPopularMovie(apiKey)
+        apiClient.getPopularMovie(apiKey = apiKey,page = myPage)
             .enqueue(object: Callback<MovieResponse>{
 
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
@@ -81,13 +81,13 @@ private val apiClient: APIinterface by lazy {
     }
 
 
-    fun requestTopMovies(callback: TopMovieCallBack){
+    fun requestTopMovies(callback: TopMovieCallBack, myPage:Int){
 
         if(this::topMovieData.isInitialized){
             callback.onTopMoviesAvailable(topMovieData)
             return
         }
-        apiClient.getTopMovies(apiKey)
+        apiClient.getTopMovies(apiKey = apiKey, page = myPage)
             .enqueue(object: Callback<MovieResponse>{
 
                 override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
