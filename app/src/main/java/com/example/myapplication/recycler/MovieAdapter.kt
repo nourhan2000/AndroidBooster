@@ -17,7 +17,7 @@ import com.example.myapplication.data.database.Movies.Movie
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.horizental_item.view.*
 
-class MovieAdapter (private val postList :List<Movie>): RecyclerView.Adapter<MovieAdapter.MovieItemViewHolder>() {
+class MovieAdapter (private var postList :List<Movie>): RecyclerView.Adapter<MovieAdapter.MovieItemViewHolder>() {
 
     class MovieItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textViewTitle: TextView = itemView.text_title_horizental
@@ -79,6 +79,11 @@ class MovieAdapter (private val postList :List<Movie>): RecyclerView.Adapter<Mov
 
     override fun getItemCount(): Int {
         return postList.size
+    }
+
+    open fun updateAdapterData(nextMovieList: List<Movie>) {
+        postList = nextMovieList
+        notifyDataSetChanged()
     }
 
 }
