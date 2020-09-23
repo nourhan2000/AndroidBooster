@@ -9,10 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.recycler.MovieAdapter
-import kotlinx.android.synthetic.main.horizental_item.*
-import kotlinx.android.synthetic.main.popular_movies_fragment.*
 import kotlinx.android.synthetic.main.top_movies_fragment.*
 
 
@@ -50,12 +47,6 @@ class TopMoviesFragment : Fragment() {
                 bindMovieData(recycler_view_top ,"top",Adapter,linearLayoutManager)
                 pagination(it,isPagination,linearLayoutManager,Adapter,recycler_view_top)
 
-//                if (isPagination){
-//                    linearLayoutManager.stackFromEnd
-//                    Adapter.updateAdapterData(it)
-//                }else {
-//                    setupRecycler(linearLayoutManager,Adapter,recycler_view_top)
-//                }
             })
 
         mainViewModel.loadTopMovieData(myPage = page)

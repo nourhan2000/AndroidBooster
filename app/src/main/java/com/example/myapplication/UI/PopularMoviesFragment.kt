@@ -6,15 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.data.database.Movies.Movie
-import com.example.myapplication.data.repositry.MovieRepository
 import com.example.myapplication.recycler.MovieAdapter
 import kotlinx.android.synthetic.main.popular_movies_fragment.*
-import kotlinx.android.synthetic.main.top_movies_fragment.*
 
 
 class PopularMoviesFragment : Fragment() {

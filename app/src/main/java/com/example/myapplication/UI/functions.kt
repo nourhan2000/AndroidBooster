@@ -2,12 +2,10 @@ package com.example.myapplication.UI
 
 import android.content.Context
 import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.recycler.MovieAdapter
-import kotlinx.android.synthetic.main.top_movies_fragment.*
 
 
 fun bindMovieData(recyclerView: RecyclerView,type:String,adapter: MovieAdapter,linearLayoutManager: LinearLayoutManager)
