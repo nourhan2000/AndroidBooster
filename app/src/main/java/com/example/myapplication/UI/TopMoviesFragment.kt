@@ -57,7 +57,7 @@ class TopMoviesFragment : Fragment() {
                 if (!recyclerView.canScrollVertically(1)) {
                     page++
                     isPagination = true
-                    mainViewModel.loadMovieData(myPage = page)
+                    mainViewModel.loadTopMovieData(myPage = page)
 
                 }
             }
