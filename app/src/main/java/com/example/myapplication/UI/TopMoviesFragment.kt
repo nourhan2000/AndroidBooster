@@ -40,20 +40,22 @@ class TopMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel.movieLiveData.observe(viewLifecycleOwner, {
-            if (isPagination){
-                linearLayoutManager.stackFromEnd
-                Adapter.updateAdapterData(it)
-            }else {
-                setupRecycler(it)
-            }
-        })
+
         mainViewModel.onError.observe(viewLifecycleOwner,{
             handelMovieError(it,requireActivity())
         })
         mainViewModel.topMovieLiveData
             .observe(viewLifecycleOwner, {
-                bindMovieData(it,recycler_view_top ,requireActivity(),"top")
+                Adapter = MovieAdapter(it)
+                bindMovieData(recycler_view_top ,"top",Adapter,linearLayoutManager)
+                pagination(it,isPagination,linearLayoutManager,Adapter,recycler_view_top)
+
+//                if (isPagination){
+//                    linearLayoutManager.stackFromEnd
+//                    Adapter.updateAdapterData(it)
+//                }else {
+//                    setupRecycler(linearLayoutManager,Adapter,recycler_view_top)
+//                }
             })
 
         mainViewModel.loadTopMovieData(myPage = page)
@@ -72,10 +74,4 @@ class TopMoviesFragment : Fragment() {
 
         }
 
-        private fun setupRecycler(movie: List<Movie>) {
-
-            recycler_view_top.layoutManager = linearLayoutManager
-            Adapter = MovieAdapter(movie)
-            recycler_view_top.adapter = Adapter
-        }
     }

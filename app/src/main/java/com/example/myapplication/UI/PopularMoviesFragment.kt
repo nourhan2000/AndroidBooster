@@ -14,6 +14,7 @@ import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.data.repositry.MovieRepository
 import com.example.myapplication.recycler.MovieAdapter
 import kotlinx.android.synthetic.main.popular_movies_fragment.*
+import kotlinx.android.synthetic.main.top_movies_fragment.*
 
 
 class PopularMoviesFragment : Fragment() {
@@ -41,20 +42,15 @@ class PopularMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel.movieLiveData.observe(viewLifecycleOwner, {
-            if (isPagination){
-                linearLayoutManager.stackFromEnd
-                Adapter.updateAdapterData(it)
-            }else {
-                setupRecycler(it)
-            }
-        })
+
         mainViewModel.onError.observe(viewLifecycleOwner, {
             handelMovieError(it,requireActivity())
         })
         mainViewModel.movieLiveData
             .observe(viewLifecycleOwner, {
-                bindMovieData(it,recycler_view_pop,requireActivity(),"pop")
+                Adapter = MovieAdapter(it)
+                bindMovieData(recycler_view_pop,"pop",Adapter,linearLayoutManager)
+                pagination(it,isPagination,linearLayoutManager,Adapter,recycler_view_pop)
             })
 
         mainViewModel.loadMovieData(myPage = page)
@@ -73,12 +69,6 @@ class PopularMoviesFragment : Fragment() {
 
         }
 
-        private fun setupRecycler(movie: List<Movie>) {
-
-            recycler_view_pop.layoutManager = linearLayoutManager
-            Adapter = MovieAdapter(movie)
-            recycler_view_pop.adapter = Adapter
-        }
     }
 
 

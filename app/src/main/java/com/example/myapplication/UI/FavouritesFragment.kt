@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
+import com.example.myapplication.recycler.MovieAdapter
 import kotlinx.android.synthetic.main.favourites_fragment.*
 
 
@@ -25,7 +27,8 @@ class FavouritesFragment : Fragment() {
         }
         return view
     }
-
+    private lateinit var Adapter: MovieAdapter
+    val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,8 +38,8 @@ class FavouritesFragment : Fragment() {
 
         mainViewModel.favMovieLiveData
             .observe(viewLifecycleOwner, {
-                bindMovieData(it,recycler_view_fav ,requireActivity(),"fav")
-
+                Adapter = MovieAdapter(it)
+                bindMovieData(recycler_view_fav,"fav",Adapter,linearLayoutManager)
             })
 
         mainViewModel.loadFavMovie()
