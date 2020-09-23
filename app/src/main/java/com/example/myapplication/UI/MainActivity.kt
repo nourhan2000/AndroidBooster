@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.example.myapplication.PaginationScrollListener
 import com.example.myapplication.R
 import com.example.myapplication.data.database.Movies.Movie
 import com.google.android.youtube.player.YouTubeBaseActivity
@@ -32,7 +33,10 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration= AppBarConfiguration(navController.graph)
         toolbar.setupWithNavController(navController,appBarConfiguration)
+
     }
+
+
 }
 //        mainViewModel.onError.observe(this, {
 //

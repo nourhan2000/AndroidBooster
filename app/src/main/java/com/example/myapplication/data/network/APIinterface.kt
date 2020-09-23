@@ -11,7 +11,7 @@ import retrofit2.http.Query
 interface APIinterface {
 
     @GET("movie/popular")
-    fun getPopularMovie(@Query ("api_key") apiKey:String): Call<MovieResponse >
+    fun getPopularMovie(@Query ("api_key") apiKey:String, @Query("page") page: Int ): Call<MovieResponse >
 
     @GET("movie/{movie_id}/reviews")
     fun getMovieReviews(@Path("movie_id") movieId:Long, @Query ("api_key") apiKey:String, ): Call<ReviewResponse>
@@ -21,6 +21,6 @@ interface APIinterface {
     fun getMovieVideos( @Path("movie_id") movieId:Long,@Query ("api_key") apiKey:String): Call<VideoResponse>
 
     @GET("movie/top_rated")
-    fun getTopMovies(@Query("api_key") apiKey:String):Call<MovieResponse>
+    fun getTopMovies(@Query("api_key") apiKey:String, @Query("page") page: Int ):Call<MovieResponse>
 
 }
