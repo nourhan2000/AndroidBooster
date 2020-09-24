@@ -8,30 +8,15 @@ import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.recycler.MovieAdapter
 
 
-fun bindMovieData(recyclerView: RecyclerView,type:String,adapter: MovieAdapter,linearLayoutManager: LinearLayoutManager)
+fun bindMovieData(context: Context,movie: List<Movie>,recyclerView: RecyclerView,type:String)
 {
     recyclerView.hasFixedSize()
-    recyclerView.layoutManager = linearLayoutManager
+    recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
     MovieAdapter.type = type
-    recyclerView.adapter = adapter
+    recyclerView.adapter = MovieAdapter(movie)
 }
 
  fun handelMovieError(errorMsg: String,context: Context)
 {
     Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
-}
-
-fun pagination(movies: List<Movie>,isPagination:Boolean,linearLayoutManager: LinearLayoutManager,adapter: MovieAdapter,recyclerView: RecyclerView){
-    if (isPagination){
-        linearLayoutManager.stackFromEnd
-        adapter.updateAdapterData(movies)
-    }else {
-        setupRecycler(linearLayoutManager,adapter,recyclerView)
-    }
-}
-
-fun setupRecycler(linearLayoutManager: LinearLayoutManager,adapter: MovieAdapter,recyclerView: RecyclerView) {
-
-    recyclerView.layoutManager = linearLayoutManager
-    recyclerView.adapter = adapter
 }

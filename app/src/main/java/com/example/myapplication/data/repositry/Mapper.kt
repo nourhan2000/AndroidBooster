@@ -11,14 +11,21 @@ import java.util.*
 import kotlin.collections.forEach as forEach1
 
 class Mapper {
-    var mergedList = LinkedList<Movie>()
-     fun convertToMovie(movieResponse: MovieResponse): List<Movie>{
+    var popMergedList = LinkedList<Movie>()
+    var topMergedList = LinkedList<Movie>()
+     fun convertToMovie(movieResponse: MovieResponse,type:String): List<Movie>{
         val movies = mutableListOf<Movie>()
         movieResponse.MoviesList.forEach1 {
             movies.add(Movie(it.movieId,it.PosterPath,it.OriginalTitle,it.originalLanguage,it.voteAverage,it.overview,it.releaseDate))
         }
-        mergedList.addAll(movies)
-         return mergedList
+         if(type=="pop"){
+             popMergedList.addAll(movies)
+             return popMergedList
+         }
+         else{
+             topMergedList.addAll(movies)
+             return topMergedList
+         }
     }
 
      fun convertToVideo(videoResponse: VideoResponse): Video{

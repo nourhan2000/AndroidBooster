@@ -9,14 +9,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.recycler.MovieAdapter
 import kotlinx.android.synthetic.main.popular_movies_fragment.*
+import kotlinx.android.synthetic.main.top_movies_fragment.*
 
 
 class PopularMoviesFragment : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
-
+    var isPagination = false
+    var page = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,11 +32,6 @@ class PopularMoviesFragment : Fragment() {
         return view
     }
 
-    private lateinit var Adapter: MovieAdapter
-    var page = 1
-    var isPagination = false
-    val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -44,9 +42,7 @@ class PopularMoviesFragment : Fragment() {
         })
         mainViewModel.movieLiveData
             .observe(viewLifecycleOwner, {
-                Adapter = MovieAdapter(it)
-                bindMovieData(recycler_view_pop,"pop",Adapter,linearLayoutManager)
-                pagination(it,isPagination,linearLayoutManager,Adapter,recycler_view_pop)
+                bindMovieData(requireActivity(),it,recycler_view_pop,"pop")
             })
 
         mainViewModel.loadMovieData(myPage = page)

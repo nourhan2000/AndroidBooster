@@ -81,9 +81,4 @@ class MovieAdapter (private var postList :List<Movie>): RecyclerView.Adapter<Mov
         return postList.size
     }
 
-    open fun updateAdapterData(nextMovieList: List<Movie>) {
-        postList = nextMovieList
-        notifyDataSetChanged()
-    }
-
 }

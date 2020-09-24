@@ -47,19 +47,13 @@ private val apiClient: APIinterface by lazy {
 
     fun requestMovies(callback: MovieCallBack, myPage: Int){
 
-        if(this::movieData.isInitialized){
-            callback.onMoviesAvailable(movieData)
-            return
-        }
-
-
         apiClient.getPopularMovie(apiKey = apiKey,page = myPage)
             .enqueue(object: Callback<MovieResponse>{
 
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if(response.isSuccessful) {
                     movieResponse=response.body()!!
-                    movieData = mapper.convertToMovie(movieResponse)
+                    movieData = mapper.convertToMovie(movieResponse,"pop")
                     moviesDatabase.getMoviesDao().addMovies(movieData)
                     callback.onMoviesAvailable(movieData)
                 } else if (response.code() == 404){
@@ -83,17 +77,13 @@ private val apiClient: APIinterface by lazy {
 
     fun requestTopMovies(callback: TopMovieCallBack, myPage:Int){
 
-        if(this::topMovieData.isInitialized){
-            callback.onTopMoviesAvailable(topMovieData)
-            return
-        }
         apiClient.getTopMovies(apiKey = apiKey, page = myPage)
             .enqueue(object: Callback<MovieResponse>{
 
                 override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                     if(response.isSuccessful) {
                         topMovieResponse=response.body()!!
-                       topMovieData  = mapper.convertToMovie(topMovieResponse)
+                       topMovieData  = mapper.convertToMovie(topMovieResponse,"top")
                         topMoviesDatabase.getTopMoviesDao().addTopMovies(topMovieData)
                         callback.onTopMoviesAvailable(topMovieData)
                     } else if (response.code() == 404){
