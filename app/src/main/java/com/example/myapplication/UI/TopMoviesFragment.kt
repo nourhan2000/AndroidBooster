@@ -40,6 +40,7 @@ class TopMoviesFragment : Fragment() {
         mainViewModel.topMovieLiveData
             .observe(viewLifecycleOwner, {
                 bindMovieData(requireActivity(),it,recycler_view_top ,"top")
+                //recycler_view_top.scrollToPosition(it.size-20)
             })
 
         mainViewModel.loadTopMovieData(myPage = page)
