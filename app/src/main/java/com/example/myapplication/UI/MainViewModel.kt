@@ -12,7 +12,7 @@ import com.example.myapplication.data.repositry.MovieRepository
 
 class MainViewModel (application: Application)
     : AndroidViewModel(application), MovieRepository.MovieCallBack, MovieRepository.TopMovieCallBack,
-    MovieRepository.ReviewCallBack, MovieRepository.VidCallBack,MovieRepository.FavoriteCallBack  {
+    MovieRepository.ReviewCallBack, MovieRepository.VidCallBack {
 
     private val _movieLiveData: MutableLiveData<List<Movie>>
             by lazy { MutableLiveData() }
@@ -24,10 +24,10 @@ class MainViewModel (application: Application)
     val topMovieLiveData: LiveData<List<Movie>>
         get() = _topMovieLiveData
 
-    private val _favMovieLiveData: MutableLiveData<List<Movie>>
-            by lazy { MutableLiveData() }
-    val favMovieLiveData: LiveData<List<Movie>>
-        get() = _favMovieLiveData
+//    private val _favMovieLiveData: MutableLiveData<List<Movie>>
+//            by lazy { MutableLiveData() }
+//    val favMovieLiveData: LiveData<List<Movie>>
+//        get() = _favMovieLiveData
 
     private val _videoLiveData: MutableLiveData<Video>
             by lazy { MutableLiveData() }
@@ -48,19 +48,19 @@ class MainViewModel (application: Application)
     private lateinit var topMovieData: List<Movie>
     private lateinit var vidData:Video
     private lateinit var movieReviewDB: List<Review>
-    private lateinit var favMovies:List<Movie>
+//    private lateinit var favMovies:List<Movie>
 
     init{
         MovieRepository.createDatabase(application)
     }
 
-    fun loadFavMovie(){
-       if (this::favMovies.isInitialized){
-           _favMovieLiveData.value=favMovies
-           return
-       }
-        MovieRepository.requestFavMovies(this)
-    }
+//    fun loadFavMovie(){
+//       if (this::favMovies.isInitialized){
+//           _favMovieLiveData.value=favMovies
+//           return
+//       }
+//        MovieRepository.requestFavMovies(this)
+//    }
 
     fun loadMovieData(myPage: Int) {
             MovieRepository.requestMovies(this, myPage)
@@ -122,13 +122,13 @@ class MainViewModel (application: Application)
         _onError.value = msg
     }
 
-    override fun onFavMoviesAvailable(movies: List<Movie>) {
-        favMovies = movies
-        _favMovieLiveData.value=favMovies
-    }
-
-    override fun onFavMoviesUnavailable(msg: String) {
-        _onError.value = msg
-    }
+//    override fun onFavMoviesAvailable(movies: List<Movie>) {
+//        favMovies = movies
+//        _favMovieLiveData.value=favMovies
+//    }
+//
+//    override fun onFavMoviesUnavailable(msg: String) {
+//        _onError.value = msg
+//    }
 }
 

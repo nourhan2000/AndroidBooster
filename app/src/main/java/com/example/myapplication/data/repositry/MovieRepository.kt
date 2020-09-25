@@ -103,28 +103,28 @@ private val apiClient: APIinterface by lazy {
             })
     }
 
-    fun requestFavMovies(callBack: FavoriteCallBack){
-        if(favMovies.size==0) {
-            movieData.forEach {
-                if (it.isFavorite)
-                    favMovies.add(it)
-            }
-            topMovieData.forEach {
-                if (it.isFavorite)
-                    favMovies.add(it)
-            }
-            favMovieDatabase.getFavMovieDao().addMovies(favMovies)
-        }
-
-        if(favMovies.size==0){
-            msg="No favorites yet"
-            callBack.onFavMoviesUnavailable(msg)
-        }
-        else{
-        callBack.onFavMoviesAvailable(favMovieDatabase.getFavMovieDao().getMovies())
-        }
-
-    }
+//    fun requestFavMovies(callBack: FavoriteCallBack){
+//        if(favMovies.size==0) {
+//            movieData.forEach {
+//                if (it.isFavorite)
+//                    favMovies.add(it)
+//            }
+//            topMovieData.forEach {
+//                if (it.isFavorite)
+//                    favMovies.add(it)
+//            }
+//            favMovieDatabase.getFavMovieDao().addMovies(favMovies)
+//        }
+//
+//        if(favMovies.size==0){
+//            msg="No favorites yet"
+//            callBack.onFavMoviesUnavailable(msg)
+//        }
+//        else{
+//        callBack.onFavMoviesAvailable(favMovieDatabase.getFavMovieDao().getMovies())
+//        }
+//
+//    }
 
 
     fun requestVids(callback: VidCallBack,movieId:Long){
@@ -198,7 +198,7 @@ private val apiClient: APIinterface by lazy {
         topMoviesDatabase= TopMoviesDatabase.getDatabase(context)
         videoDatabase= VideoDatabase.getDatabase(context)
         reviewDatabase= ReviewDatabase.getDatabase(context)
-        favMovieDatabase = FavMovieDatabase.getDatabase(context)
+//        favMovieDatabase = FavMovieDatabase.getDatabase(context)
     }
 
     interface MovieCallBack{
@@ -220,8 +220,8 @@ private val apiClient: APIinterface by lazy {
         fun onReviewUnavailable(msg:String)
     }
 
-    interface FavoriteCallBack{
-        fun onFavMoviesAvailable(movies: List<Movie>)
-        fun onFavMoviesUnavailable(msg:String)
-    }
+//    interface FavoriteCallBack{
+//        fun onFavMoviesAvailable(movies: List<Movie>)
+//        fun onFavMoviesUnavailable(msg:String)
+//    }
 }
