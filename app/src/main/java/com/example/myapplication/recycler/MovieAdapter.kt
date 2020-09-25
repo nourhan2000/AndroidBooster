@@ -77,5 +77,9 @@ class MovieAdapter (private var postList :List<Movie>): RecyclerView.Adapter<Mov
     override fun getItemCount(): Int {
         return postList.size
     }
+    open fun updateAdapterData(nextMovieList: List<Movie>) {
+        postList = nextMovieList
+        notifyDataSetChanged()
+    }
 
 }

@@ -34,13 +34,11 @@ object FavoriteObject {
 
     fun addFav(movie: Movie){
         favMovies.add(movie)
-        favMovieDatabase.getFavMovieDao().addMovies(favMovies)
     }
 
     fun removeFav(movie: Movie){
-        favMovieDatabase.getFavMovieDao().deleteMovie(movie)
+        favMovies.remove(movie)
     }
 
-    fun getFav():List<Movie> = favMovieDatabase.getFavMovieDao().getMovies()
 
 }

@@ -39,9 +39,7 @@ class TopMoviesFragment : Fragment() {
         })
         mainViewModel.topMovieLiveData
             .observe(viewLifecycleOwner, {
-                bindMovieData(requireActivity(),it,recycler_view_top ,"top")
-//                if(it.size>20)
-//                recycler_view_top.scrollToPosition(it.size-24)
+                bindMovieData(requireActivity(),it,recycler_view_top ,"top",isPagination)
             })
 
         mainViewModel.loadTopMovieData(myPage = page)
