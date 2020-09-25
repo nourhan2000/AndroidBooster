@@ -42,7 +42,7 @@ class PopularMoviesFragment : Fragment() {
         })
         mainViewModel.movieLiveData
             .observe(viewLifecycleOwner, {
-                bindMovieData(requireActivity(),it,recycler_view_pop,"pop")
+                bindMovieData(requireActivity(),it,recycler_view_pop,"pop",isPagination)
                 if(it.size>20)
                     recycler_view_pop.scrollToPosition(it.size-24)
             })

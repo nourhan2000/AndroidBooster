@@ -34,7 +34,7 @@ class FavouritesFragment : Fragment() {
 
         mainViewModel.favMovieLiveData
             .observe(viewLifecycleOwner, {
-                bindMovieData(requireActivity(),it,recycler_view_fav,"fav")
+                bindMovieData(requireActivity(),it,recycler_view_fav,"fav",false)
             })
 
         mainViewModel.loadFavMovie()

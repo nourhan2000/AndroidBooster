@@ -9,12 +9,19 @@ import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.recycler.MovieAdapter
 
 
-fun bindMovieData(context: Context,movie: List<Movie>,recyclerView: RecyclerView,type:String)
+fun bindMovieData(context: Context,movie: List<Movie>,recyclerView: RecyclerView,type:String,isPagination:Boolean)
 {
+    val adapter =  MovieAdapter(movie)
+    val layoutManager= GridLayoutManager(context,2)
+    if(isPagination){
+        adapter.updateAdapterData(movie)
+        layoutManager.stackFromEnd
+        return
+    }
     recyclerView.hasFixedSize()
-    recyclerView.layoutManager = GridLayoutManager(context,2)
+    recyclerView.layoutManager = layoutManager
     MovieAdapter.type = type
-    recyclerView.adapter = MovieAdapter(movie)
+    recyclerView.adapter = adapter
 }
 
  fun handelMovieError(errorMsg: String,context: Context)
