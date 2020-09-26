@@ -4,10 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.myapplication.data.database.Movies.FavMovieDatabase
 import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.data.database.Reviews.Review
 import com.example.myapplication.data.database.Videos.Video
 import com.example.myapplication.data.repositry.MovieRepository
+import java.util.*
 
 
 class MainViewModel (application: Application)
@@ -48,16 +50,15 @@ class MainViewModel (application: Application)
     private lateinit var topMovieData: List<Movie>
     private lateinit var vidData:Video
     private lateinit var movieReviewDB: List<Review>
-    private lateinit var favMovies:List<Movie>
+    private  var favMovies=LinkedList<Movie>()
+    private  var movie: Movie? = null
+    private val favMovieDatabase: FavMovieDatabase
 
     init{
         MovieRepository.createDatabase(application)
+        favMovieDatabase= FavMovieDatabase.getDatabase(application)
     }
 
-    fun loadFavMovie(){
-        favMovies=FavoriteObject.favMovies
-        _favMovieLiveData.value=favMovies
-    }
 
     fun loadMovieData(myPage: Int) {
             MovieRepository.requestMovies(this, myPage)
@@ -79,6 +80,43 @@ class MainViewModel (application: Application)
             _reviewLiveData.value = movieReviewDB
             return}
         MovieRepository.requestMovieReviews(this,movieId)
+    }
+
+    fun loadFavMovie(){
+        _favMovieLiveData.value=favMovies
+    }
+
+    fun addFav(movieID: Long,isFav:Boolean){
+        findMovieByID(movieID,isFav)
+        if (movie!=null)
+        favMovies.add(movie!!)
+        favMovieDatabase.getFavMovieDao().addMovies(favMovies)
+    }
+
+    fun removeFav(movieID: Long,isFav:Boolean){
+        findMovieByID(movieID,isFav)
+        if (movie!=null){
+        favMovies.remove(movie)
+        favMovieDatabase.getFavMovieDao().deleteMovie(movie!!)}
+    }
+
+    fun findMovieByID(movieID: Long,isFav:Boolean){
+        var currentMovie: Movie? = null
+        _movieLiveData.value?.forEach {
+            if (movieID==it.movieId){
+                it.isFavorite=isFav
+                currentMovie= it
+            }
+        }
+        if(movie==null){
+            _topMovieLiveData.value?.forEach {
+                if (movieID==it.movieId){
+                    it.isFavorite=isFav
+                    currentMovie= it
+                }
+            }
+        }
+        currentMovie=movie
     }
 
     override fun onMoviesUnavailable(msg: String) {
@@ -119,13 +157,5 @@ class MainViewModel (application: Application)
         _onError.value = msg
     }
 
-//    override fun onFavMoviesAvailable(movies: List<Movie>) {
-//        favMovies = movies
-//        _favMovieLiveData.value=favMovies
-//    }
-//
-//    override fun onFavMoviesUnavailable(msg: String) {
-//        _onError.value = msg
-//    }
 }
 

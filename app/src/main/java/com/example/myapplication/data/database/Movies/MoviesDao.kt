@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface MoviesDao {
 
-    @Query("Select * FROM Movie")
+    @Query("Select * FROM Movie  WHERE type='pop'")
     fun getMovies(): List<Movie>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

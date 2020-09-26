@@ -15,7 +15,7 @@ class Mapper {
      fun convertToMovie(movieResponse: MovieResponse,type:String): List<Movie>{
         val movies = mutableListOf<Movie>()
         movieResponse.MoviesList.forEach1 {
-            movies.add(Movie(it.movieId,it.PosterPath,it.OriginalTitle,it.originalLanguage,it.voteAverage,it.overview,it.releaseDate))
+            movies.add(Movie(it.movieId,it.PosterPath,it.OriginalTitle,it.originalLanguage,it.voteAverage,it.overview,it.releaseDate,type))
         }
          if(type=="pop"){
              popMergedList.addAll(movies)

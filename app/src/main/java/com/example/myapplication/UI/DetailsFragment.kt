@@ -41,9 +41,6 @@ class DetailsFragment : Fragment() {
         var movieId =this.requireArguments().getLong("movie_id")
         var isFav= this.requireArguments().getBoolean("isFav")
 
-        var currentMovie: Movie? = null
-        FavoriteObject.createFavDb(requireActivity())
-
         textView11.text= this.requireArguments().getString("vote")
         textView10.text= this.requireArguments().getString("date")
         textView9.text = this.requireArguments().getString("overView")
@@ -80,18 +77,12 @@ class DetailsFragment : Fragment() {
 
         fav_button.setOnClickListener {
             if (!isFav) {
-                currentMovie=FavoriteObject.findMovieByID(mainViewModel.movieLiveData.value,mainViewModel.topMovieLiveData.value,movieId,true)
                 fav_button.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
-
-                if (currentMovie!=null)
-                    FavoriteObject.addFav(currentMovie!!)
+                mainViewModel.addFav(movieId,isFav)
 
             } else {
-                currentMovie=FavoriteObject.findMovieByID(mainViewModel.movieLiveData.value,mainViewModel.topMovieLiveData.value,movieId,false)
                 fav_button.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
-
-                if (currentMovie!=null)
-                    FavoriteObject.removeFav(currentMovie!!)
+                mainViewModel.removeFav(movieId,isFav)
             }
         }
 

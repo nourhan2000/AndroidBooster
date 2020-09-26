@@ -31,15 +31,10 @@ class MovieAdapter (private var postList :List<Movie>): RecyclerView.Adapter<Mov
     }
 
     override fun onBindViewHolder(holder: MovieItemViewHolder, position: Int) {
-//        val favMovieDatabase=FavMovieDatabase.getDatabase(holder.itemView.context)
         var movieModel = postList[position]
         holder.textViewTitle.text = movieModel.OriginalTitle
         val photo = "https://image.tmdb.org/t/p/w500/${movieModel.PosterPath}"
         Picasso.get().load(photo).into(holder.imageView)
-//        if(movieModel.isFavorite)
-//            holder.favButton.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
-//        else
-//            holder.favButton.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
 
         holder.imageView.setOnClickListener() {
             when(type){
@@ -58,17 +53,6 @@ class MovieAdapter (private var postList :List<Movie>): RecyclerView.Adapter<Mov
             }
         }
 
-//        holder.favButton.setOnClickListener {
-//            if (movieModel.isFavorite == false) {
-//                movieModel.isFavorite = true
-//                holder.favButton.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
-//                favMovieDatabase.getFavMovieDao().addMovie(movieModel)
-//            } else {
-//                holder.favButton.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
-//                movieModel.isFavorite = false
-//                favMovieDatabase.getFavMovieDao().deleteMovie(movieModel)
-//            }
-//        }
     }
     companion object{
         lateinit var type: String
