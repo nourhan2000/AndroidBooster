@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.favourites_fragment.*
 
 
 class FavouritesFragment : Fragment() {
+
     private lateinit var mainViewModel: MainViewModel
 
 
@@ -21,20 +22,23 @@ class FavouritesFragment : Fragment() {
     ): View? {
         val view =inflater.inflate(R.layout.favourites_fragment, container, false)
         activity?.let{
-            mainViewModel=ViewModelProvider(this).get(MainViewModel::class.java)
+            mainViewModel= ViewModelProvider(this).get(MainViewModel::class.java)
         }
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel.onError.observe(viewLifecycleOwner,{
-            handelMovieError(it,requireActivity())
-        })
+
 
         mainViewModel.favMovieLiveData
             .observe(viewLifecycleOwner, {
-                bindMovieData(requireActivity(),it,recycler_view_fav,"fav",false)
+                if (it.isNotEmpty()){
+                    bindMovieData(requireActivity(),it,recycler_view_fav,"fav",false)
+                }
+                else{
+                    handelMovieError("no fav Movies",requireActivity())
+                }
             })
 
         mainViewModel.loadFavMovie()

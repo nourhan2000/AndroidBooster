@@ -12,7 +12,7 @@ import com.example.myapplication.data.repositry.MovieRepository
 
 class MainViewModel (application: Application)
     : AndroidViewModel(application), MovieRepository.MovieCallBack, MovieRepository.TopMovieCallBack,
-    MovieRepository.ReviewCallBack, MovieRepository.VidCallBack,MovieRepository.FavoriteCallBack  {
+    MovieRepository.ReviewCallBack, MovieRepository.VidCallBack {
 
     private val _movieLiveData: MutableLiveData<List<Movie>>
             by lazy { MutableLiveData() }
@@ -55,11 +55,8 @@ class MainViewModel (application: Application)
     }
 
     fun loadFavMovie(){
-       if (this::favMovies.isInitialized){
-           _favMovieLiveData.value=favMovies
-           return
-       }
-        MovieRepository.requestFavMovies(this)
+        favMovies=FavoriteObject.favMovies
+        _favMovieLiveData.value=favMovies
     }
 
     fun loadMovieData(myPage: Int) {
@@ -122,13 +119,13 @@ class MainViewModel (application: Application)
         _onError.value = msg
     }
 
-    override fun onFavMoviesAvailable(movies: List<Movie>) {
-        favMovies = movies
-        _favMovieLiveData.value=favMovies
-    }
-
-    override fun onFavMoviesUnavailable(msg: String) {
-        _onError.value = msg
-    }
+//    override fun onFavMoviesAvailable(movies: List<Movie>) {
+//        favMovies = movies
+//        _favMovieLiveData.value=favMovies
+//    }
+//
+//    override fun onFavMoviesUnavailable(msg: String) {
+//        _onError.value = msg
+//    }
 }
 

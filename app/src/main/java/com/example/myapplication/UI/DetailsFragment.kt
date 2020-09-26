@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
+import com.example.myapplication.data.database.Movies.FavMovieDatabase
+import com.example.myapplication.data.database.Movies.Movie
 import com.example.myapplication.recycler.ReviewAdapter
 import com.google.android.youtube.player.YouTubeStandalonePlayer
 import com.squareup.picasso.Picasso
@@ -34,14 +36,23 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val youtubeAPIkey = "AIzaSyAGF4s6LEPwk80wuf7v0gUG5ey8jNQS17I"
         var movieId =this.requireArguments().getLong("movie_id")
+        var isFav= this.requireArguments().getBoolean("isFav")
+
+        var currentMovie: Movie? = null
+        FavoriteObject.createFavDb(requireActivity())
 
         textView11.text= this.requireArguments().getString("vote")
         textView10.text= this.requireArguments().getString("date")
         textView9.text = this.requireArguments().getString("overView")
         var photo = this.requireArguments().getString("photo")
         Picasso.get().load(photo).into(imageView2)
+        if(isFav)
+            fav_button.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
+        else
+            fav_button.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
 
         mainViewModel.onError.observe(viewLifecycleOwner,{
             handelMovieError(it,requireActivity())
@@ -65,6 +76,23 @@ class DetailsFragment : Fragment() {
         vid_button.setOnClickListener{
             intent = YouTubeStandalonePlayer.createVideoIntent(requireActivity(), youtubeAPIkey, vidKey)
             startActivity(intent)
+        }
+
+        fav_button.setOnClickListener {
+            if (!isFav) {
+                currentMovie=FavoriteObject.findMovieByID(mainViewModel.movieLiveData.value,mainViewModel.topMovieLiveData.value,movieId,true)
+                fav_button.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
+
+                if (currentMovie!=null)
+                    FavoriteObject.addFav(currentMovie!!)
+
+            } else {
+                currentMovie=FavoriteObject.findMovieByID(mainViewModel.movieLiveData.value,mainViewModel.topMovieLiveData.value,movieId,false)
+                fav_button.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
+
+                if (currentMovie!=null)
+                    FavoriteObject.removeFav(currentMovie!!)
+            }
         }
 
     }
